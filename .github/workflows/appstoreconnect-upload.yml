@@ -1,0 +1,95 @@
+name: Build and Upload to App Store Connect
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload-testflight:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select latest Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Import signing certificate
+        uses: apple-actions/import-codesign-certs@v3
+        with:
+          p12-file-base64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.P12_PASSWORD }}
+
+      - name: Download provisioning profile
+        id: profiles
+        uses: apple-actions/download-provisioning-profiles@v4
+        with:
+          bundle-id: KHPrivate.SplitHappens
+          profile-type: IOS_APP_STORE
+          issuer-id: ${{ vars.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ vars.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+
+      - name: Resolve provisioning profile name
+        run: |
+          set -euo pipefail
+          PROFILE_NAME=$(echo '${{ steps.profiles.outputs.profiles }}' | /usr/bin/jq -r '.[0].name')
+          if [ -z "$PROFILE_NAME" ] || [ "$PROFILE_NAME" = "null" ]; then
+            echo "Could not resolve a provisioning profile name from downloaded profiles output."
+            exit 1
+          fi
+          echo "PROFILE_NAME=$PROFILE_NAME" >> "$GITHUB_ENV"
+
+      - name: Archive app
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project SplitHappens.xcodeproj \
+            -scheme SplitHappens \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/SplitHappens.xcarchive" \
+            DEVELOPMENT_TEAM=JWJC9AQS33 \
+            PRODUCT_BUNDLE_IDENTIFIER=KHPrivate.SplitHappens \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFILE_NAME" \
+            archive
+
+      - name: Export IPA
+        run: |
+          set -euo pipefail
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>teamID</key>
+            <string>JWJC9AQS33</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>KHPrivate.SplitHappens</key>
+              <string>${PROFILE_NAME}</string>
+            </dict>
+          </dict>
+          </plist>
+          PLIST
+
+          xcodebuild \
+            -exportArchive \
+            -archivePath "$RUNNER_TEMP/SplitHappens.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist"
+
+      - name: Upload to TestFlight (App Store Connect)
+        uses: apple-actions/upload-testflight-build@v3
+        with:
+          app-path: ${{ runner.temp }}/export/SplitHappens.ipa
+          issuer-id: ${{ vars.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ vars.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}

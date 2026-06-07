@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-05-02T05:27:33.106Z",
+  "inputPath": "/tmp/fixed_levels_batch_2026_05_01.txt",
+  "objectBlocksFound": 9,
+  "parsedCandidates": 9,
+  "importedIds": [
+    "reds",
+    "thecars"
+  ],
+  "droppedDuplicateIds": [
+    "ghana",
+    "anns",
+    "salmon",
+    "denzel",
+    "ant",
+    "scots",
+    "venice"
+  ],
+  "quarantinedIds": [],
+  "parseFailures": [],
+  "autoRepaired": []
+}

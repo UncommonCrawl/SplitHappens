@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "public": "public",
+    "predeploy": [
+      "node scripts/build-remote-content.js"
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
