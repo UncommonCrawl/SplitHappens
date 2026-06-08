@@ -310,7 +310,8 @@ struct LevelContentSnapshot {
             targetRowCount: 5,
             targetRowLengths: [6, 5, 4, 5, 4]
         ),
-        criteria: ["[ROWS COMPLETED]/[TOTAL ROWS] WORDS", nil, nil],
+        criteriaRegular: "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+        criteriaPerfect: "GOLD TILES SPELL  IN ORDER",
         goldTileExpectations: [],
         goldWord: "",
         note: ""
@@ -601,7 +602,8 @@ private struct LevelFileDefinition: Decodable {
     let sourceWordLengths: [Int]?
     let targetRowCount: Int?
     let targetRowLengths: [Int]?
-    let criteria2: String?
+    let criteriaRegular: String?
+    let criteriaPerfect: String?
     let source: [String]?
     let answers: [String]?
     let goldWord: String?
@@ -616,7 +618,8 @@ private struct LevelFileDefinition: Decodable {
         case sourceWordLengths = "SOURCE_WORD_LENGTHS"
         case targetRowCount = "TARGET_ROW_COUNT"
         case targetRowLengths = "TARGET_ROW_LENGTHS"
-        case criteria2 = "CRITERIA_2"
+        case criteriaRegular = "CRITERIA_REGULAR"
+        case criteriaPerfect = "CRITERIA_PERFECT"
         case source
         case answers
         case goldWord = "GOLD_WORD"
@@ -667,11 +670,8 @@ private struct LevelFileDefinition: Decodable {
             targetRows: resolvedTargetRows,
             answerRows: resolvedAnswerRows,
             boardShape: boardShape,
-            criteria: [
-                "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
-                normalizedCriterion(criteria2),
-                "GOLD TILES SPELL \(resolvedGoldWord) IN ORDER"
-            ],
+            criteriaRegular: normalizedCriterion(criteriaRegular) ?? "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+            criteriaPerfect: normalizedCriterion(criteriaPerfect) ?? "GOLD TILES SPELL \(resolvedGoldWord) IN ORDER",
             goldTileExpectations: goldTileExpectations,
             goldWord: resolvedGoldWord,
             note: resolvedNote

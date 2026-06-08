@@ -85,14 +85,6 @@ function cleanId(raw) {
         .replace(/^-|-$/g, "");
 }
 
-function normalizeCriteria(raw) {
-    return String(raw || "")
-        .toUpperCase()
-        .replace(/[^A-Z0-9_\*\[\]\/ ]+/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-}
-
 function countLetters(words, { ignoreAsterisks = false } = {}) {
     const counts = new Map();
     words.forEach((word) => {
@@ -161,8 +153,9 @@ function enrichLevel(seed) {
         source,
         VOWEL_RATIO: calculateVowelRatio(source),
         answers,
-        CRITERIA_2: seed.CRITERIA_2,
         GOLD_WORD: deriveGoldWord(answers),
+        CRITERIA_REGULAR: "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+        CRITERIA_PERFECT: `GOLD TILES SPELL ${deriveGoldWord(answers)} IN ORDER`,
         NOTE: String(seed.NOTE || "")
     };
 }
@@ -224,11 +217,9 @@ function parseSeed(block) {
     const idRaw = parseStringField(block, "ID");
     const source = parseArrayField(block, "source");
     const answers = parseArrayField(block, "answers");
-    const criteriaRaw = parseStringField(block, "CRITERIA_2");
     const note = parseStringField(block, "NOTE") || "";
 
     const ID = cleanId(idRaw);
-    const CRITERIA_2 = normalizeCriteria(criteriaRaw);
     const cleanedSource = (source || []).map(normalizeWord).filter(Boolean);
     const cleanedAnswers = (answers || []).map(normalizeWord).filter(Boolean);
 
@@ -237,11 +228,10 @@ function parseSeed(block) {
     }
     if (!cleanedSource.length) return { ok: false, id: ID, reason: "missing/invalid source array" };
     if (!cleanedAnswers.length) return { ok: false, id: ID, reason: "missing/invalid answers array" };
-    if (!CRITERIA_2) return { ok: false, id: ID, reason: "missing/invalid CRITERIA_2" };
 
     return {
         ok: true,
-        seed: { ID, source: cleanedSource, answers: cleanedAnswers, CRITERIA_2, NOTE: note }
+        seed: { ID, source: cleanedSource, answers: cleanedAnswers, NOTE: note }
     };
 }
 
@@ -283,7 +273,6 @@ function run() {
     const imported = [];
     const quarantined = [];
     const droppedDuplicateIds = [];
-    const autoRepaired = [];
 
     parsedSeeds.forEach((seed) => {
         if (existingIds.has(seed.ID) || correctionIds.has(seed.ID) || seenIncoming.has(seed.ID)) {
@@ -292,18 +281,6 @@ function run() {
         }
         seenIncoming.add(seed.ID);
 
-        const rawCriteria = seed.CRITERIA_2;
-        const repairedCriteria = normalizeCriteria(rawCriteria);
-        if (rawCriteria !== repairedCriteria) {
-            autoRepaired.push({
-                id: seed.ID,
-                field: "CRITERIA_2",
-                from: rawCriteria,
-                to: repairedCriteria
-            });
-            seed.CRITERIA_2 = repairedCriteria;
-        }
-
         try {
             imported.push(enrichLevel(seed));
         } catch (error) {
@@ -311,7 +288,6 @@ function run() {
                 ID: seed.ID,
                 source: seed.source,
                 answers: seed.answers,
-                CRITERIA_2: seed.CRITERIA_2,
                 CORRECTION_NOTE: `AUTO_MOVED_FOR_CORRECTION: ${error.message}`
             });
         }
@@ -325,7 +301,6 @@ function run() {
             ID: failure.id,
             source: [],
             answers: [],
-            CRITERIA_2: "",
             CORRECTION_NOTE: `AUTO_MOVED_FOR_CORRECTION: ${failure.reason}`
         }));
         fs.writeFileSync(
@@ -354,8 +329,7 @@ function run() {
         importedIds: imported.map((level) => level.ID),
         droppedDuplicateIds,
         quarantinedIds: quarantined.map((level) => level.ID),
-        parseFailures,
-        autoRepaired
+        parseFailures
     };
     fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 

@@ -31,6 +31,19 @@ function normalizeTargetWord(word) {
     return String(word).toUpperCase().replace(/\*/g, "");
 }
 
+function deriveGoldWord(words) {
+    const letters = [];
+    words.forEach((rawWord) => {
+        const word = String(rawWord).toUpperCase();
+        for (let i = 1; i < word.length; i += 1) {
+            if (word[i] === "*" && /[A-Z]/.test(word[i - 1])) {
+                letters.push(word[i - 1]);
+            }
+        }
+    });
+    return letters.join("");
+}
+
 function countLetters(words, { ignoreAsterisks = false } = {}) {
     const counts = new Map();
     words.forEach((rawWord) => {
@@ -407,37 +420,34 @@ for (const [word, occurrences] of targetWordOccurrences.entries()) {
 check2Duplicates.sort((lhs, rhs) => lhs.word.localeCompare(rhs.word));
 
 const check3Failures = [];
-const check3Skipped = [];
 levels.forEach((level, index) => {
     const levelId = getLevelId(level, index);
-    const rawCriterion = level.CRITERIA_2 ?? level.criteria2 ?? null;
+    const targetWords = getTargetWords(level);
+    const goldWord = deriveGoldWord(targetWords);
+    const expectedPerfect = `GOLD TILES SPELL ${goldWord} IN ORDER`;
 
-    if (typeof rawCriterion !== "string" || !rawCriterion.trim()) {
-        check3Skipped.push({ levelId, reason: "no CRITERIA_2 rule" });
-        return;
-    }
-
-    const targetWords = getTargetWords(level).map(normalizeTargetWord).filter(Boolean);
-    if (targetWords.length === 0) {
-        check3Skipped.push({ levelId, reason: "no target words available for evaluation" });
-        return;
-    }
-
-    const parsed = parseCriterion(rawCriterion);
-    if (!parsed || parsed.type === "unsupported") {
-        check3Skipped.push({
-            levelId,
-            reason: `unsupported CRITERIA_2 format: "${rawCriterion}"`
-        });
-        return;
-    }
-
-    const isSatisfied = evaluateCriterion(parsed, targetWords);
-    if (isSatisfied === false) {
+    if (level.CRITERIA_REGULAR !== "[ROWS COMPLETED]/[TOTAL ROWS] WORDS") {
         check3Failures.push({
             levelId,
-            criterion: rawCriterion,
-            targetWords
+            field: "CRITERIA_REGULAR",
+            expected: "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+            actual: level.CRITERIA_REGULAR
+        });
+    }
+    if (level.GOLD_WORD !== goldWord) {
+        check3Failures.push({
+            levelId,
+            field: "GOLD_WORD",
+            expected: goldWord,
+            actual: level.GOLD_WORD
+        });
+    }
+    if (level.CRITERIA_PERFECT !== expectedPerfect) {
+        check3Failures.push({
+            levelId,
+            field: "CRITERIA_PERFECT",
+            expected: expectedPerfect,
+            actual: level.CRITERIA_PERFECT
         });
     }
 });
@@ -478,18 +488,13 @@ if (check2Duplicates.length === 0) {
 }
 console.log("");
 
-console.log("3) CRITERIA_2 matches the level answer key");
+console.log("3) Named criteria match the level answer key");
 if (check3Failures.length === 0) {
-    console.log(`PASS (${levels.length - check3Skipped.length} checked, ${check3Skipped.length} skipped)`);
+    console.log(`PASS (${levels.length} checked)`);
 } else {
-    console.log(`FAIL (${check3Failures.length} criteria mismatch(es), ${check3Skipped.length} skipped)`);
+    console.log(`FAIL (${check3Failures.length} criteria mismatch(es))`);
     check3Failures.forEach((failure) => {
-        console.log(`- ${failure.levelId}: ${failure.criterion} does not match [${failure.targetWords.join(", ")}]`);
-    });
-}
-if (check3Skipped.length > 0) {
-    check3Skipped.forEach((skipped) => {
-        console.log(`- ${skipped.levelId}: skipped (${skipped.reason})`);
+        console.log(`- ${failure.levelId}: ${failure.field} expected "${failure.expected}", found "${failure.actual}"`);
     });
 }
 console.log("");

@@ -41,7 +41,8 @@ struct LevelDefinition {
     let targetRows: [Int]
     let answerRows: [String]
     let boardShape: LevelBoardShape
-    let criteria: [String?]
+    let criteriaRegular: String
+    let criteriaPerfect: String
     let goldTileExpectations: [GoldTileExpectation]
     let goldWord: String
     let note: String
@@ -85,20 +86,23 @@ private enum LevelAchievementBadge: String, CaseIterable {
 
 private struct PersistedLevelProgress: Codable {
     var tilePlacements: [PersistedTilePlacement]
-    var achievedCriteria: [Bool]
+    var hasAchievedSplit: Bool
+    var hasAchievedPerfectSplit: Bool
     var moveHistory: [[PersistedTilePlacement]]?
     var hintedRowIndices: [Int]
     var earnedGoldBadges: [String]
 
     init(
         tilePlacements: [PersistedTilePlacement],
-        achievedCriteria: [Bool],
+        hasAchievedSplit: Bool,
+        hasAchievedPerfectSplit: Bool,
         moveHistory: [[PersistedTilePlacement]]?,
         hintedRowIndices: [Int],
         earnedGoldBadges: [String]
     ) {
         self.tilePlacements = tilePlacements
-        self.achievedCriteria = achievedCriteria
+        self.hasAchievedSplit = hasAchievedSplit
+        self.hasAchievedPerfectSplit = hasAchievedPerfectSplit
         self.moveHistory = moveHistory
         self.hintedRowIndices = hintedRowIndices
         self.earnedGoldBadges = earnedGoldBadges
@@ -106,6 +110,8 @@ private struct PersistedLevelProgress: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case tilePlacements
+        case hasAchievedSplit
+        case hasAchievedPerfectSplit
         case achievedCriteria
         case moveHistory
         case hintedRowIndices
@@ -116,7 +122,11 @@ private struct PersistedLevelProgress: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         tilePlacements = try container.decode([PersistedTilePlacement].self, forKey: .tilePlacements)
-        achievedCriteria = try container.decode([Bool].self, forKey: .achievedCriteria)
+        let legacyCriteria = try container.decodeIfPresent([Bool].self, forKey: .achievedCriteria) ?? []
+        hasAchievedSplit = try container.decodeIfPresent(Bool.self, forKey: .hasAchievedSplit)
+            ?? (legacyCriteria.indices.contains(0) && legacyCriteria[0])
+        hasAchievedPerfectSplit = try container.decodeIfPresent(Bool.self, forKey: .hasAchievedPerfectSplit)
+            ?? (legacyCriteria.indices.contains(2) && legacyCriteria[2])
         moveHistory = try container.decodeIfPresent([[PersistedTilePlacement]].self, forKey: .moveHistory)
         hintedRowIndices = try container.decodeIfPresent([Int].self, forKey: .hintedRowIndices) ?? []
         earnedGoldBadges = try container.decodeIfPresent([String].self, forKey: .earnedGoldBadges) ?? []
@@ -125,7 +135,8 @@ private struct PersistedLevelProgress: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(tilePlacements, forKey: .tilePlacements)
-        try container.encode(achievedCriteria, forKey: .achievedCriteria)
+        try container.encode(hasAchievedSplit, forKey: .hasAchievedSplit)
+        try container.encode(hasAchievedPerfectSplit, forKey: .hasAchievedPerfectSplit)
         try container.encodeIfPresent(moveHistory, forKey: .moveHistory)
         try container.encode(hintedRowIndices, forKey: .hintedRowIndices)
         try container.encode(earnedGoldBadges, forKey: .earnedGoldBadges)
@@ -1133,8 +1144,8 @@ private enum AppColor {
     static let tileIncorrect = Color(red: 251 / 255, green: 226 / 255, blue: 224 / 255)
     static let letterCorrect = Color(red: 0 / 255, green: 176 / 255, blue: 80 / 255)
     
-    static let criteriaBronze = Color(red: 175 / 255, green: 145 / 255, blue: 110 / 255)
-    static let criteriaSilver = Color(red: 209 / 255, green: 209 / 255, blue: 209 / 255)
+    static let split = Color(red: 175 / 255, green: 145 / 255, blue: 110 / 255)
+    static let perfectSplit = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
     static let criteriaGold = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
     static let goldDark = Color(red: 247 / 255, green: 185 / 255, blue: 0 / 255)
     static let darkGold = goldDark
@@ -1223,9 +1234,8 @@ private struct PopupSheetScaffold<Actions: View>: View {
             line,
             highlights: [
                 .init(phrase: "valid English word", color: AppColor.textDefault, weight: .semibold),
-                .init(phrase: "Bronze", color: AppColor.criteriaBronze, weight: .semibold),
-                .init(phrase: "Silver", color: AppColor.buttonActive, weight: .semibold),
-                .init(phrase: "Gold", color: AppColor.darkGold, weight: .semibold),
+                .init(phrase: "Split", color: AppColor.split, weight: .semibold),
+                .init(phrase: "Perfect Split", color: AppColor.darkGold, weight: .semibold),
                 .init(phrase: "Shuffle", color: AppColor.textDefault, weight: .semibold),
                 .init(phrase: "Hint", color: AppColor.textDefault, weight: .semibold),
                 .init(phrase: "Good luck!", color: AppColor.textDefault, weight: .semibold)
@@ -1455,8 +1465,8 @@ private struct IntroPopupView: View {
             title: "How To Play",
             bodyLines: [
                 "Rearrange every letter to form a valid English word in each row.",
-                "Bronze badges are earned when all rows are filled.",
-                "Silver and Gold badges can only be achieved once the previous criteria have been met.",
+                "A Split is earned when every row is filled with a valid word.",
+                "A Perfect Split is earned when the gold tiles spell the bonus word in order.",
                 "Use the Hint button to fill in a word from the official answer key. (Each puzzle may have multiple correct solutions!)",
                 "Good luck!"
             ],
@@ -1501,9 +1511,8 @@ private struct LevelNotePopupView: View {
 
 private struct StatsPopupView: View {
     let played: Int
-    let bronze: Int
-    let silver: Int
-    let gold: Int
+    let split: Int
+    let perfectSplit: Int
     let noBadge: Int
     let onResetProgress: () -> Void
     let onClose: () -> Void
@@ -1518,9 +1527,8 @@ private struct StatsPopupView: View {
 
     private var slices: [DonutSlice] {
         [
-            DonutSlice(id: "gold", label: "Gold", value: gold, color: AppColor.criteriaGold),
-            DonutSlice(id: "silver", label: "Silver", value: silver, color: AppColor.criteriaSilver),
-            DonutSlice(id: "bronze", label: "Bronze", value: bronze, color: AppColor.criteriaBronze),
+            DonutSlice(id: "perfectSplit", label: "Perfect Split", value: perfectSplit, color: AppColor.perfectSplit),
+            DonutSlice(id: "split", label: "Split", value: split, color: AppColor.split),
             DonutSlice(id: "none", label: "N/A", value: noBadge, color: AppColor.tileFill)
         ]
     }
@@ -1928,9 +1936,8 @@ struct ContentView: View {
         case gameInfo
         case levelNote
         case stats
-        case bronzeVictory
-        case silverVictory
-        case goldVictory
+        case splitVictory
+        case perfectSplitVictory
         case about
 
         var id: String { rawValue }
@@ -2029,7 +2036,8 @@ struct ContentView: View {
     @State private var pendingLevelLoadTask: Task<Void, Never>?
     @State private var areLevelVisualsRevealed = false
     @State private var levelRevealTask: Task<Void, Never>?
-    @State private var achievedCriteria: [Bool] = Array(repeating: false, count: 3)
+    @State private var hasAchievedSplit = false
+    @State private var hasAchievedPerfectSplit = false
     @State private var hintedRowIndices: Set<Int> = []
     @State private var moveHistoryByLevelID: [String: [[PersistedTilePlacement]]] = [:]
     @State private var earnedBadgesByLevelID: [String: Set<LevelAchievementBadge>] = [:]
@@ -2076,9 +2084,8 @@ struct ContentView: View {
     }
 
     private let criteriaSealColors = [
-        AppColor.criteriaBronze,
-        AppColor.criteriaSilver,
-        AppColor.criteriaGold
+        AppColor.split,
+        AppColor.perfectSplit
     ]
 
     init(previewShowVictoryPopup: Bool = false, previewPopup: PreviewPopup? = nil) {
@@ -2126,11 +2133,12 @@ struct ContentView: View {
                     targetRowSizes: previewLevel.boardShape.targetRowLengths,
                     goldTileExpectations: previewLevel.goldTileExpectations
                 ))
-                _achievedCriteria = State(initialValue: [true, true, true])
+                _hasAchievedSplit = State(initialValue: true)
+                _hasAchievedPerfectSplit = State(initialValue: true)
                 _earnedBadgesByLevelID = State(initialValue: [
                     previewLevel.id: Set(LevelAchievementBadge.allCases)
                 ])
-                _activePopup = State(initialValue: .goldVictory)
+                _activePopup = State(initialValue: .perfectSplitVictory)
             }
         }
     }
@@ -2330,7 +2338,7 @@ struct ContentView: View {
 
     private func handleActivePopupChange(_ popup: ActivePopup?) {
         switch popup {
-        case .bronzeVictory, .silverVictory, .goldVictory:
+        case .splitVictory, .perfectSplitVictory:
             playVictorySound()
         default:
             break
@@ -2887,15 +2895,11 @@ struct ContentView: View {
             return AppColor.tileFill
         }
 
-        let achieved = normalizedCriteriaState(persistedLevel.achievedCriteria)
-        if achieved.indices.contains(2), achieved[2] {
-            return AppColor.criteriaGold
+        if persistedLevel.hasAchievedPerfectSplit {
+            return AppColor.perfectSplit
         }
-        if achieved.indices.contains(1), achieved[1] {
-            return AppColor.criteriaSilver
-        }
-        if achieved.indices.contains(0), achieved[0] {
-            return AppColor.criteriaBronze
+        if persistedLevel.hasAchievedSplit {
+            return AppColor.split
         }
         return AppColor.tileFill
     }
@@ -3064,7 +3068,7 @@ struct ContentView: View {
         iconSize: CGFloat = BoardUI.bottomActionBarIconSize,
         action: @escaping () -> Void = {}
     ) -> some View {
-        let iconColor = foregroundColor ?? (isEnabled ? AppColor.buttonActive : AppColor.criteriaSilver)
+        let iconColor = foregroundColor ?? (isEnabled ? AppColor.buttonActive : AppColor.tilePlaceholder)
         let icon = Image(systemName: systemImage)
             .font(.system(size: iconSize))
             .foregroundStyle(iconColor)
@@ -3265,7 +3269,7 @@ struct ContentView: View {
             ZStack(alignment: .topLeading) {
                 HStack(spacing: tabSpacing) {
                     ForEach(Array(rows.enumerated()), id: \.offset) { index, row in
-                        let isAchieved = achievedCriteria.indices.contains(index) ? achievedCriteria[index] : false
+                        let isAchieved = index == 0 ? hasAchievedSplit : hasAchievedPerfectSplit
                         criteriaRow(
                             label: row.label,
                             goldLetterMatches: row.goldLetterMatches,
@@ -3273,7 +3277,7 @@ struct ContentView: View {
                             showSealBorder: row.isMet,
                             sealBorderOpacity: row.arePriorCriteriaMet ? 1 : 0.5,
                             showCheckmark: isAchieved,
-                            enableAchievementAnimation: index < 2,
+                            enableAchievementAnimation: true,
                             shadowYOffset: row.isMet ? -1 : 1,
                             width: columnWidth,
                             height: tabHeight,
@@ -3307,7 +3311,7 @@ struct ContentView: View {
     }
 
     private func criteriaLabelSize(for layout: BoardLayout) -> CGFloat {
-        let rowCount = 3
+        let rowCount = 2
         let tabsWidth = max(40, layout.sharedStackWidth - (BoardUI.criteriaHorizontalInset * 2))
         let interTabCount = max(rowCount - 1, 0)
         let columnWidth = max(
@@ -3325,10 +3329,9 @@ struct ContentView: View {
         rowWords: [String?],
         goldLetterMatches: [Bool]
     ) -> [(label: String?, goldLetterMatches: [Bool]?, isSatisfied: Bool, isMet: Bool, arePriorCriteriaMet: Bool)] {
-        let evaluatedRows = level.criteria.map { rawCriterion -> (label: String?, goldLetterMatches: [Bool]?, isMet: Bool) in
-            guard let criterion = LevelCriterion(rawValue: rawCriterion) else {
-                return (label: nil, goldLetterMatches: nil, isMet: false)
-            }
+        let criteria = [level.criteriaRegular, level.criteriaPerfect]
+        let evaluatedRows = criteria.compactMap { rawCriterion -> (label: String, goldLetterMatches: [Bool]?, isMet: Bool)? in
+            guard let criterion = LevelCriterion(rawValue: rawCriterion) else { return nil }
 
             let label = criterion.label(
                 completedWords: completedWords,
@@ -3362,19 +3365,17 @@ struct ContentView: View {
                 arePriorCriteriaMet: priorCriteriaSatisfied
             ))
 
-            if row.label != nil {
-                priorCriteriaSatisfied = isSatisfied
-            }
+            priorCriteriaSatisfied = isSatisfied
         }
 
-        if rows.count < 3 {
+        if rows.count < 2 {
             rows.append(contentsOf: Array(
                 repeating: (label: nil, goldLetterMatches: nil, isSatisfied: false, isMet: false, arePriorCriteriaMet: false),
-                count: 3 - rows.count
+                count: 2 - rows.count
             ))
         }
 
-        return Array(rows.prefix(3))
+        return Array(rows.prefix(2))
     }
 
     private func criteriaRow(
@@ -3671,7 +3672,8 @@ struct ContentView: View {
         pickupForceByLetterID = [:]
         slotFrames = [:]
         sourceFrames = [:]
-        achievedCriteria = Array(repeating: false, count: 3)
+        hasAchievedSplit = false
+        hasAchievedPerfectSplit = false
         hintedRowIndices = []
 
         let restoredMoveHistory: [[PersistedTilePlacement]]?
@@ -4553,39 +4555,21 @@ struct ContentView: View {
             rowWords: rowWords,
             goldLetterMatches: goldLetterMatches
         )
-        let isBronzeCurrentlySatisfied = rows.indices.contains(0) && rows[0].isSatisfied
-        let isSilverCurrentlySatisfied = rows.indices.contains(1) && rows[1].isSatisfied
-        let isGoldCurrentlySatisfied = rows.indices.contains(2) && rows[2].isSatisfied && isSilverCurrentlySatisfied
+        let isSplitCurrentlySatisfied = rows.indices.contains(0) && rows[0].isSatisfied
+        let isPerfectSplitCurrentlySatisfied = rows.indices.contains(1) && rows[1].isSatisfied && isSplitCurrentlySatisfied
+        let updatedHasAchievedSplit = hasAchievedSplit || isSplitCurrentlySatisfied
+        let updatedHasAchievedPerfectSplit = hasAchievedPerfectSplit || isPerfectSplitCurrentlySatisfied
+        let newlyReachedSplit = !hasAchievedSplit && updatedHasAchievedSplit
+        let newlyReachedPerfectSplit = !hasAchievedPerfectSplit && updatedHasAchievedPerfectSplit
 
-        var updated = achievedCriteria
-        if updated.count < 3 {
-            updated.append(contentsOf: Array(repeating: false, count: 3 - updated.count))
-        }
-
-        if updated.indices.contains(0) {
-            updated[0] = updated[0] || isBronzeCurrentlySatisfied
-        }
-        if updated.indices.contains(1) {
-            updated[1] = updated[1] || isSilverCurrentlySatisfied
-        }
-        if updated.indices.contains(2) {
-            updated[2] = updated[2] || isGoldCurrentlySatisfied
-        }
-
-        let newlyReachedBronze = !(achievedCriteria.indices.contains(0) && achievedCriteria[0]) &&
-            (updated.indices.contains(0) && updated[0])
-        let newlyReachedSilver = !(achievedCriteria.indices.contains(1) && achievedCriteria[1]) &&
-            (updated.indices.contains(1) && updated[1])
-        let newlyReachedGold = !(achievedCriteria.indices.contains(2) && achievedCriteria[2]) &&
-            (updated.indices.contains(2) && updated[2])
-
-        if updated != achievedCriteria {
+        if updatedHasAchievedSplit != hasAchievedSplit || updatedHasAchievedPerfectSplit != hasAchievedPerfectSplit {
             withAnimation(.spring(response: 0.26, dampingFraction: 0.74)) {
-                achievedCriteria = updated
+                hasAchievedSplit = updatedHasAchievedSplit
+                hasAchievedPerfectSplit = updatedHasAchievedPerfectSplit
             }
         }
 
-        if newlyReachedGold {
+        if newlyReachedPerfectSplit {
             var updatedBadges = earnedBadgesByLevelID[currentLevel.id] ?? []
             let earned = badgesEarnedUponGoldAchievement(
                 for: currentLevelIndex,
@@ -4596,12 +4580,10 @@ struct ContentView: View {
         }
 
         if currentScreen == .game, !shouldSuppressMilestonePopups {
-            if newlyReachedGold {
-                activePopup = .goldVictory
-            } else if newlyReachedSilver {
-                activePopup = .silverVictory
-            } else if newlyReachedBronze {
-                activePopup = .bronzeVictory
+            if newlyReachedPerfectSplit {
+                activePopup = .perfectSplitVictory
+            } else if newlyReachedSplit {
+                activePopup = .splitVictory
             }
         }
     }
@@ -4890,7 +4872,8 @@ struct ContentView: View {
     private func restoreSavedProgressForCurrentLevel() -> [[PersistedTilePlacement]]? {
         guard let persistedLevel = progressSnapshot.levelsByID[currentLevel.id] else { return nil }
 
-        achievedCriteria = normalizedCriteriaState(persistedLevel.achievedCriteria)
+        hasAchievedSplit = persistedLevel.hasAchievedSplit
+        hasAchievedPerfectSplit = persistedLevel.hasAchievedPerfectSplit
         hintedRowIndices = Set(
             persistedLevel.hintedRowIndices.filter { game.slotIDs.indices.contains($0) }
         )
@@ -4911,14 +4894,6 @@ struct ContentView: View {
         }
 
         return persistedLevel.moveHistory
-    }
-
-    private func normalizedCriteriaState(_ criteria: [Bool]) -> [Bool] {
-        var normalized = Array(criteria.prefix(3))
-        if normalized.count < 3 {
-            normalized.append(contentsOf: Array(repeating: false, count: 3 - normalized.count))
-        }
-        return normalized
     }
 
     private func currentTilePlacementsForPersistence() -> [PersistedTilePlacement] {
@@ -5052,7 +5027,8 @@ struct ContentView: View {
         let levelID = currentLevel.id
         let persistedLevel = PersistedLevelProgress(
             tilePlacements: currentTilePlacementsForPersistence(),
-            achievedCriteria: normalizedCriteriaState(achievedCriteria),
+            hasAchievedSplit: hasAchievedSplit,
+            hasAchievedPerfectSplit: hasAchievedPerfectSplit,
             moveHistory: moveHistoryByLevelID[levelID],
             hintedRowIndices: hintedRowIndices.sorted(),
             earnedGoldBadges: (earnedBadgesByLevelID[levelID] ?? [])
@@ -5096,7 +5072,7 @@ struct ContentView: View {
 
     private func shareAchievement(badgeName: String) {
         let levelLabel = levelDisplayLabel(for: currentLevelIndex)
-        pendingShareMessage = "I just reached \(badgeName) on SplitHappens for \(levelLabel). Think you can match my score?"
+        pendingShareMessage = "I just got a \(badgeName) on SplitHappens for \(levelLabel). Think you can match it?"
         activePopup = nil
     }
 
@@ -5106,7 +5082,8 @@ struct ContentView: View {
 
         moveHistoryByLevelID.removeAll()
         earnedBadgesByLevelID.removeAll()
-        achievedCriteria = Array(repeating: false, count: 3)
+        hasAchievedSplit = false
+        hasAchievedPerfectSplit = false
         hintedRowIndices.removeAll()
         resetSourceTilesToOriginalPositions()
     }
@@ -5117,31 +5094,26 @@ struct ContentView: View {
         sharePayload = SharePayload(message: pendingShareMessage)
     }
 
-    private var completedStatsSummary: (played: Int, bronze: Int, silver: Int, gold: Int, noBadge: Int) {
-        var bronzeOnlyCount = 0
-        var silverOnlyCount = 0
-        var goldCount = 0
+    private var completedStatsSummary: (played: Int, split: Int, perfectSplit: Int, noBadge: Int) {
+        var splitOnlyCount = 0
+        var perfectSplitCount = 0
         let totalLevels = Self.activeLevels.count
 
         for level in Self.activeLevels {
             guard let levelProgress = progressSnapshot.levelsByID[level.id] else { continue }
-            let normalized = normalizedCriteriaState(levelProgress.achievedCriteria)
-            if normalized[2] {
-                goldCount += 1
-            } else if normalized[1] {
-                silverOnlyCount += 1
-            } else if normalized[0] {
-                bronzeOnlyCount += 1
+            if levelProgress.hasAchievedPerfectSplit {
+                perfectSplitCount += 1
+            } else if levelProgress.hasAchievedSplit {
+                splitOnlyCount += 1
             }
         }
 
-        let noBadgeCount = max(totalLevels - (goldCount + silverOnlyCount + bronzeOnlyCount), 0)
+        let noBadgeCount = max(totalLevels - (perfectSplitCount + splitOnlyCount), 0)
 
         return (
             played: progressSnapshot.levelsByID.count,
-            bronze: bronzeOnlyCount,
-            silver: silverOnlyCount,
-            gold: goldCount,
+            split: splitOnlyCount,
+            perfectSplit: perfectSplitCount,
             noBadge: noBadgeCount
         )
     }
@@ -5190,9 +5162,8 @@ struct ContentView: View {
 
             StatsPopupView(
                 played: stats.played,
-                bronze: stats.bronze,
-                silver: stats.silver,
-                gold: stats.gold,
+                split: stats.split,
+                perfectSplit: stats.perfectSplit,
                 noBadge: stats.noBadge,
                 onResetProgress: {
                     resetAllLevelProgress()
@@ -5200,7 +5171,7 @@ struct ContentView: View {
             ) {
                 activePopup = nil
             }
-        case .bronzeVictory, .silverVictory, .goldVictory:
+        case .splitVictory, .perfectSplitVictory:
             let victorySpacingAfterTitle: CGFloat = 20
             let victorySpacingAfterSubtitle: CGFloat = 20
             let levelText = levelSubtitle(for: currentLevelIndex) ?? levelDisplayLabel(for: currentLevelIndex)
@@ -5212,25 +5183,21 @@ struct ContentView: View {
             let hasTwoGoldBadges = earnedGoldBadges.count == 2
             let badgeName: String = {
                 switch popup {
-                case .bronzeVictory:
-                    return "Bronze"
-                case .silverVictory:
-                    return "Silver"
-                case .goldVictory:
-                    return "Gold"
+                case .splitVictory:
+                    return "Split"
+                case .perfectSplitVictory:
+                    return "Perfect Split"
                 default:
-                    return "Bronze"
+                    return "Split"
                 }
             }()
-            let secondaryButtonTitle = popup == .goldVictory ? "Level Select" : "Go for Gold"
-            let secondaryButtonIcon = popup == .goldVictory ? "square.grid.2x2.fill" : "trophy.fill"
+            let secondaryButtonTitle = popup == .perfectSplitVictory ? "Level Select" : "Go for Perfect"
+            let secondaryButtonIcon = popup == .perfectSplitVictory ? "square.grid.2x2.fill" : "trophy.fill"
             let badgeAccentColor: Color = {
                 switch popup {
-                case .bronzeVictory:
-                    return AppColor.criteriaBronze
-                case .silverVictory:
-                    return AppColor.buttonActive
-                case .goldVictory:
+                case .splitVictory:
+                    return AppColor.split
+                case .perfectSplitVictory:
                     return AppColor.darkGold
                 default:
                     return AppColor.textDefault
@@ -5238,11 +5205,9 @@ struct ContentView: View {
             }()
             let victoryTitle: String = {
                 switch popup {
-                case .bronzeVictory:
+                case .splitVictory:
                     return "You Split It!"
-                case .silverVictory:
-                    return "Split-acular!"
-                case .goldVictory:
+                case .perfectSplitVictory:
                     return "Perfect Split!"
                 default:
                     return "You Split It!"
@@ -5254,7 +5219,7 @@ struct ContentView: View {
                 iconAssetName: "BananaBlack",
                 iconAssetTint: badgeAccentColor,
                 title: victoryTitle,
-                bodyLines: ["You just earned the \(badgeName) badge for \(levelText)."],
+                bodyLines: ["You just got a \(badgeName) for \(levelText)."],
                 bodyLineFontWeight: .semibold,
                 spacingAfterTitle: victorySpacingAfterTitle,
                 spacingAfterBodyLines: victorySpacingAfterSubtitle,
@@ -5265,7 +5230,7 @@ struct ContentView: View {
                 }
             ) {
                 VStack(spacing: 20) {
-                    if popup == .goldVictory, !earnedGoldBadges.isEmpty {
+                    if popup == .perfectSplitVictory, !earnedGoldBadges.isEmpty {
                         HStack(alignment: .top, spacing: 10) {
                             ForEach(earnedGoldBadges, id: \.rawValue) { badge in
                                 VStack(spacing: 2) {
@@ -5307,7 +5272,7 @@ struct ContentView: View {
                             shareAchievement(badgeName: badgeName)
                         }
                         modalIconButton(title: secondaryButtonTitle, systemImage: secondaryButtonIcon) {
-                            if popup == .goldVictory {
+                            if popup == .perfectSplitVictory {
                                 activePopup = nil
                                 exitLevel()
                             } else {

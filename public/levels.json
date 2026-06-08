@@ -11,8 +11,9 @@
       "source": ["FLATWHITE","COLDBREW","FRAPPE"],
       "VOWEL_RATIO": 0.3043,
       "answers": ["C*O*WBELL","WHARF*","F*ITTE*D","PAPE*R"],
-      "CRITERIA_2": "*_STARTS_W",
       "GOLD_WORD": "COFFEE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL COFFEE IN ORDER",
       "NOTE": ""
     },
     {
@@ -25,8 +26,9 @@
       "source": ["SCRATCHY","SYLVESTER","GARFIELD"],
       "VOWEL_RATIO": 0.32,
       "answers": ["C*REDIT","GRA*VY","ARCH","ST*YLES","S*ELF"],
-      "CRITERIA_2": "1X_ENDS_F",
       "GOLD_WORD": "CATS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CATS IN ORDER",
       "NOTE": ""
     },
     {
@@ -39,8 +41,9 @@
       "source": ["BELLAGIO","VENETIAN","CAESARS"],
       "VOWEL_RATIO": 0.4783,
       "answers": ["SAV*E*","G*REEN","TA*IL","ABLE","CAS*INO"],
-      "CRITERIA_2": "4_STARTS_A",
       "GOLD_WORD": "VEGAS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL VEGAS IN ORDER",
       "NOTE": ""
     },
     {
@@ -53,8 +56,9 @@
       "source": ["TOMYUM","REDCURRY","FISHSAUCE"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["MUD","CRUST*Y","H*OUSE","CREA*MY","FI*R"],
-      "CRITERIA_2": "2X_STARTS_C",
       "GOLD_WORD": "THAI",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL THAI IN ORDER",
       "NOTE": "Tom yum: a beloved Thai soup that derives its flavor from kaffir leaves, lemongrass, and galangal, a member of the ginger family."
     },
     {
@@ -67,8 +71,9 @@
       "source": ["REVERSE","DRAWFOUR","SKIPTURN"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["RU*SES","TURF","RIN*K","RAVE","PO*WDER"],
-      "CRITERIA_2": "2_ENDS_F",
       "GOLD_WORD": "UNO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL UNO IN ORDER",
       "NOTE": ""
     },
     {
@@ -81,8 +86,9 @@
       "source": ["MCCLANE","HIDING","AIRDUCT"],
       "VOWEL_RATIO": 0.35,
       "answers": ["MIND*I*NG","CLUE*","CH*A*R*T","ACID*"],
-      "CRITERIA_2": "4_STARTS_A",
       "GOLD_WORD": "DIEHARD",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL DIEHARD IN ORDER",
       "NOTE": ""
     },
     {
@@ -95,8 +101,9 @@
       "source": ["INLARGE","PLAYSTHE","LOOKSTHE"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["KEP*T","LOYA*L","SHE","HER*O","LAST*ING"],
-      "CRITERIA_2": "3_STARTS_S",
       "GOLD_WORD": "PART",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PART IN ORDER",
       "NOTE": ""
     },
     {
@@ -109,8 +116,9 @@
       "source": ["GRAVLAX","LOMILOMI","SAKEDON"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["S*ILK","A*MID","L*OX","M*O*VER","AN*ALOG"],
-      "CRITERIA_2": "5_ENDS_G",
       "GOLD_WORD": "SALMON",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SALMON IN ORDER",
       "NOTE": ""
     },
     {
@@ -123,8 +131,9 @@
       "source": ["CROWNED","GOLDEN","BALD"],
       "VOWEL_RATIO": 0.2941,
       "answers": ["E*ND","DRA*W","G*LOB","CL*ONE*D"],
-      "CRITERIA_2": "1X_ENDS_B",
       "GOLD_WORD": "EAGLE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL EAGLE IN ORDER",
       "NOTE": ""
     },
     {
@@ -137,8 +146,9 @@
       "source": ["NOSCRUBS","LEFTEYE","UNPRETTY"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["T*YPE","ERR","FL*EET","SC*OUTS","BUNNY"],
-      "CRITERIA_2": "1X_DOUBLE_E",
       "GOLD_WORD": "TLC",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TLC IN ORDER",
       "NOTE": "Formed in Atlanta in 1990, TLC became one of the best-selling American girl groups of all time, with their name famously derived from the initials of its founding members: Tionne 'T-Boz' Watkins, Lisa 'Left Eye' Lopes, and Rozonda 'Chilli' Thomas."
     },
     {
@@ -151,8 +161,9 @@
       "source": ["MALCOLMX","INSIDEMAN","EQUALIZER"],
       "VOWEL_RATIO": 0.4231,
       "answers": ["LIQUID*S","LAX","AME*N*","Z*INC","MARE*","MOL*E"],
-      "CRITERIA_2": "1_CONTAINS_Q",
       "GOLD_WORD": "DENZEL",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL DENZEL IN ORDER",
       "NOTE": ""
     },
     {
@@ -165,8 +176,9 @@
       "source": ["PROFPLUM","LEADPIPE","KITCHEN"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["PIC*K","L*EAP","U*PLIFT","NE*ED","MORPH"],
-      "CRITERIA_2": "1X_CONTAINS_ED",
       "GOLD_WORD": "CLUE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CLUE IN ORDER",
       "NOTE": ""
     },
     {
@@ -179,8 +191,9 @@
       "source": ["LOGCABIN","ILLINOIS","HONESTABE"],
       "VOWEL_RATIO": 0.44,
       "answers": ["SIGNAL*","OBTAI*N*","EC*HO*ES","BILL*ION*"],
-      "CRITERIA_2": "1X_CONTAINS_IG",
       "GOLD_WORD": "LINCOLN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LINCOLN IN ORDER",
       "NOTE": ""
     },
     {
@@ -193,8 +206,9 @@
       "source": ["BBKING","BODIDDLEY","SONHOUSE"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["B*IB","BL*OG","HOU*NDS","DONKE*Y","S*IDE"],
-      "CRITERIA_2": "4_STARTS_D",
       "GOLD_WORD": "BLUES",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BLUES IN ORDER",
       "NOTE": ""
     },
     {
@@ -207,8 +221,9 @@
       "source": ["OVERHAND","PRUSIK","ALBRIGHT"],
       "VOWEL_RATIO": 0.3182,
       "answers": ["HIK*IN*G","VAPO*R","SHED","T*AR","BLUR"],
-      "CRITERIA_2": "3_STARTS_S",
       "GOLD_WORD": "KNOT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL KNOT IN ORDER",
       "NOTE": "These three knots relate to three different disciplines - how many can you identify?"
     },
     {
@@ -221,8 +236,9 @@
       "source": ["MARBLES","STRATEGIC","EGYPTIAN"],
       "VOWEL_RATIO": 0.375,
       "answers": ["M*ERITS","BA*N*G","C*A*TTY","L*IPS","EA*GER"],
-      "CRITERIA_2": "5_CONTAINS_E",
       "GOLD_WORD": "MANCALA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL MANCALA IN ORDER",
       "NOTE": "Mancala: An ancient strategic board game with popular variants enjoyed from Ethiopia to India to the Baltics."
     },
     {
@@ -235,8 +251,9 @@
       "source": ["CANADIAN","SOUTHERN","COCKNEY"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["CHA*NC*E","C*ANYON","SIDE*","RAN*K","OUT*"],
-      "CRITERIA_2": "1X_STARTS_R",
       "GOLD_WORD": "ACCENT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ACCENT IN ORDER",
       "NOTE": ""
     },
     {
@@ -249,8 +266,9 @@
       "source": ["SKIMMED","ALMOND","COCONUT"],
       "VOWEL_RATIO": 0.35,
       "answers": ["M*OUND","MOMENT","DI*SC","CL*OAK*"],
-      "CRITERIA_2": "*_CONTAINS_OU",
       "GOLD_WORD": "MILK",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL MILK IN ORDER",
       "NOTE": ""
     },
     {
@@ -263,8 +281,9 @@
       "source": ["JAMESKIRK","VONTRAPP","CRUNCH"],
       "VOWEL_RATIO": 0.2609,
       "answers": ["C*RA*CK","JUMP*","NORT*H","PA*RK","VI*N*ES"],
-      "CRITERIA_2": "1X_ENDS_P",
       "GOLD_WORD": "CAPTAIN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CAPTAIN IN ORDER",
       "NOTE": ""
     },
     {
@@ -277,8 +296,9 @@
       "source": ["BONSCOTT","PHILRUDD","HARDROCK"],
       "VOWEL_RATIO": 0.25,
       "answers": ["HA*BIT","TRUNK","C*HORD","D*ROP","SC*OLD"],
-      "CRITERIA_2": "2_CONTAINS_K",
       "GOLD_WORD": "ACDC",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ACDC IN ORDER",
       "NOTE": ""
     },
     {
@@ -291,8 +311,9 @@
       "source": ["PARASITE","BIRDMAN","CHICAGO"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["B*RAIN","CHE*MIS*T*","AGO","P*AI*R","C*AD"],
-      "CRITERIA_2": "4X_CONTAINS_A",
       "GOLD_WORD": "BESTPIC",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BESTPIC IN ORDER",
       "NOTE": ""
     },
     {
@@ -305,8 +326,9 @@
       "source": ["CARNIVAL","CAMPANILE","CICHETTI"],
       "VOWEL_RATIO": 0.4,
       "answers": ["CIV*IL","ME*ANT","PICN*I*C","LATC*H","ARE*A"],
-      "CRITERIA_2": "1X_ENDS_C",
       "GOLD_WORD": "VENICE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL VENICE IN ORDER",
       "NOTE": "The most iconic choices for cicchetti, Venice's iconic bar appetizers, include polpette (fried meatballs) and baccalà mantecato (creamed cod)."
     },
     {
@@ -319,8 +341,9 @@
       "source": ["TATERTOTS","GNOCCHI","PIEROGI"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["GOP*HER","IRO*N","T*A*CTIC","GIST*","TO*E"],
-      "CRITERIA_2": "1X_ENDS_C",
       "GOLD_WORD": "POTATO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL POTATO IN ORDER",
       "NOTE": ""
     },
     {
@@ -333,8 +356,9 @@
       "source": ["COMPOUND","COUNTABLE","SINGULAR"],
       "VOWEL_RATIO": 0.4,
       "answers": ["MULE","ON*ION","GRO*U*P","BLAN*D","CACTUS*"],
-      "CRITERIA_2": "1X_STARTS_O",
       "GOLD_WORD": "NOUNS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL NOUNS IN ORDER",
       "NOTE": ""
     },
     {
@@ -347,8 +371,9 @@
       "source": ["VIENNA","SCHUBERT","BACKHENDL"],
       "VOWEL_RATIO": 0.3043,
       "answers": ["CHA*NCE","BU*LKS*","T*END","R*I*B","HA*VEN"],
-      "CRITERIA_2": "1_STARTS_C",
       "GOLD_WORD": "AUSTRIA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL AUSTRIA IN ORDER",
       "NOTE": ""
     },
     {
@@ -361,8 +386,9 @@
       "source": ["PIXIEDUST","NEVERLAND","PIRATES"],
       "VOWEL_RATIO": 0.4,
       "answers": ["P*IE*R","T*AXED","VE*R*SUS","P*A*IL","IN*DENT"],
-      "CRITERIA_2": "2X_STARTS_P",
       "GOLD_WORD": "PETERPAN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PETERPAN IN ORDER",
       "NOTE": ""
     },
     {
@@ -375,8 +401,9 @@
       "source": ["ARCTURUS","CANOPUS","POLARIS"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["COPS*","UNUSUAL","CARROT*","PA*IR*S"],
-      "CRITERIA_2": "1X_DOUBLE_R",
       "GOLD_WORD": "STAR",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL STAR IN ORDER",
       "NOTE": ""
     },
     {
@@ -389,8 +416,9 @@
       "source": ["DRACULA","SUPERMAN","ZORRO"],
       "VOWEL_RATIO": 0.4,
       "answers": ["C*URL","RA*ZOR","P*AUSE*","RAND*OM"],
-      "CRITERIA_2": "2_CONTAINS_Z",
       "GOLD_WORD": "CAPED",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CAPED IN ORDER",
       "NOTE": "Dracula's cape was actually the invention of a 1924 stage production; when Bela Lugosi donned it seven years later, it became an iconic part of the character."
     },
     {
@@ -403,8 +431,9 @@
       "source": ["GRUYERE","FONTINA","CHEDDAR"],
       "VOWEL_RATIO": 0.4286,
       "answers": ["F*RYER","O*AT","GAIN*ED*","CHU*RNE*D"],
-      "CRITERIA_2": "*_ENDS_Y_NONE",
       "GOLD_WORD": "FONDUE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL FONDUE IN ORDER",
       "NOTE": ""
     },
     {
@@ -417,8 +446,9 @@
       "source": ["JOEBURROW","GLENDAVIS","LOLOJONES"],
       "VOWEL_RATIO": 0.4074,
       "answers": ["JEWEL*","GOLD","S*OON","INSU*RER","JOB","OVAL"],
-      "CRITERIA_2": "*_DOUBLE_*",
       "GOLD_WORD": "LSU",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LSU IN ORDER",
       "NOTE": "Represented by the fiercely competitive Tigers, Louisiana State University (LSU) is a collegiate athletic powerhouse in the Southeastern Conference that has claimed numerous national championships across football, baseball, and track and field."
     },
     {
@@ -431,8 +461,9 @@
       "source": ["PYRAMIDS","CITADEL","KOSHARI"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["AID","C*ITY","SHA*KE","SPI*R*AL","DO*RM"],
-      "CRITERIA_2": "*_ENDS_S_NONE",
       "GOLD_WORD": "CAIRO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CAIRO IN ORDER",
       "NOTE": "A classic Cairo street food that combines rice, pasta, and lentils, koshari is often considered Egypt's national dish."
     },
     {
@@ -445,8 +476,9 @@
       "source": ["BADNEWS","GRIZZLY","CHICAGO"],
       "VOWEL_RATIO": 0.3333,
       "answers": ["B*OG","HAZE*","WIZA*R*DS*","CYCLING"],
-      "CRITERIA_2": "4_CONTAINS_Y",
       "GOLD_WORD": "BEARS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BEARS IN ORDER",
       "NOTE": ""
     },
     {
@@ -459,8 +491,9 @@
       "source": ["ARTICHOKE","PURPLE","TOOKITTO"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["PH*OTO","OPE*RA*","OUTER*","KICK","TILT*"],
-      "CRITERIA_2": "1X_ENDS_O",
       "GOLD_WORD": "HEART",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL HEART IN ORDER",
       "NOTE": "According to Greek mythology, the first artichoke was created when Zeus turned a rejected lover into a prickly thistle... but botanically speaking, the edible "
     },
     {
@@ -473,8 +506,9 @@
       "source": ["WAITITI","HILLARY","JACKSON"],
       "VOWEL_RATIO": 0.4286,
       "answers": ["HAS","K*I*TTY","LAW*","JAIL","I*RONIC"],
-      "CRITERIA_2": "3X_CONTAINS_A",
       "GOLD_WORD": "KIWI",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL KIWI IN ORDER",
       "NOTE": ""
     },
     {
@@ -487,8 +521,9 @@
       "source": ["WINEHOUSE","VANDYKEN","MADIGAN"],
       "VOWEL_RATIO": 0.4583,
       "answers": ["VA*IN","HUM*ANE","OKAY*","DEW","S*ENDING"],
-      "CRITERIA_2": "1X_STARTS_O",
       "GOLD_WORD": "AMYS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL AMYS IN ORDER",
       "NOTE": ""
     },
     {
@@ -501,8 +536,9 @@
       "source": ["PIUSIX","STPETER","GREGORY"],
       "VOWEL_RATIO": 0.4,
       "answers": ["GRIP*","O*YSTER","P*URGE*","EXITS*"],
-      "CRITERIA_2": "2_CONTAINS_Y",
       "GOLD_WORD": "POPES",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL POPES IN ORDER",
       "NOTE": ""
     },
     {
@@ -515,8 +551,9 @@
       "source": ["MARINO","AYKROYD","STEVENS"],
       "VOWEL_RATIO": 0.45,
       "answers": ["D*YES","RA*KER","NAVY","MOTION*S*"],
-      "CRITERIA_2": "1X_CONTAINS_AV",
       "GOLD_WORD": "DANS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL DANS IN ORDER",
       "NOTE": ""
     },
     {
@@ -529,8 +566,9 @@
       "source": ["FOLLOWING","MEMENTO","INSOMNIA"],
       "VOWEL_RATIO": 0.4167,
       "answers": ["LOGIN*","WO*O","L*EMON","MIME","INFA*N*TS"],
-      "CRITERIA_2": "1X_ENDS_O",
       "GOLD_WORD": "NOLAN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL NOLAN IN ORDER",
       "NOTE": "Christopher Nolan's success in blending complex psychological storytelling in Memento with his efficient handling of a mid-budget studio thriller in Insomnia convinced Warner Bros. to trust him with the massive Batman Begins reboot."
     },
     {
@@ -543,8 +581,9 @@
       "source": ["MINNESOTA","PURPLE","GOCRAZY"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["P*AUPER*","STI*N*G","C*OZY","LONE*","ARM"],
-      "CRITERIA_2": "1X_STARTS_A",
       "GOLD_WORD": "PRINCE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PRINCE IN ORDER",
       "NOTE": ""
     },
     {
@@ -557,8 +596,9 @@
       "source": ["GATEWAY","CARDINALS","MISSOURI"],
       "VOWEL_RATIO": 0.4583,
       "answers": ["WAIS*T*","AGIL*E","SO*U*R","RANCI*D","YAMS*"],
-      "CRITERIA_2": "1X_STARTS_Y",
       "GOLD_WORD": "STLOUIS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL STLOUIS IN ORDER",
       "NOTE": ""
     },
     {
@@ -571,8 +611,9 @@
       "source": ["KEYLARGO","BIGSLEEP","SABRINA"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["B*IKE","RAG","SLO*PE","G*AI*NS","BARE*LY"],
-      "CRITERIA_2": "1X_ENDS_G",
       "GOLD_WORD": "BOGIE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BOGIE IN ORDER",
       "NOTE": "Remembered as the quintessential cynical-yet-noble hero of Hollywood's Golden Age in classics like Casablanca, Humphrey Bogart was universally known as "
     },
     {
@@ -585,8 +626,9 @@
       "source": ["KEYLIME","PUMPKIN","CHERRY"],
       "VOWEL_RATIO": 0.4,
       "answers": ["LUMP*Y","HYPER","KI*CKER","MINE*"],
-      "CRITERIA_2": "1X_STARTS_K",
       "GOLD_WORD": "PIE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PIE IN ORDER",
       "NOTE": "Early medieval pies were essentially baked crusts filled with whatever miscellaneous meats and scraps were available. Because of this, experts believe the word 'pie' is derived from the magpie bird, famous for hoarding a random assortment of objects!"
     },
     {
@@ -599,8 +641,9 @@
       "source": ["CLOONEY","BRADPITT","LASVEGAS"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["BLO*T","C*ARGO","E*VA*DE","PIN*TS","LAYS*"],
-      "CRITERIA_2": "1X_ENDS_O",
       "GOLD_WORD": "OCEANS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL OCEANS IN ORDER",
       "NOTE": ""
     },
     {
@@ -613,8 +656,9 @@
       "source": ["SLIMSHADY","EIGHTMILE","NOTAFRAID"],
       "VOWEL_RATIO": 0.4074,
       "answers": ["LOAFE*R","SM*I*TH","HAN*GE*D","DAISY","LIM*IT"],
-      "CRITERIA_2": "3_STARTS_H",
       "GOLD_WORD": "EMINEM",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL EMINEM IN ORDER",
       "NOTE": ""
     },
     {
@@ -627,8 +671,9 @@
       "source": ["MICHIGAN","SHOWTIME","DREAMTEAM"],
       "VOWEL_RATIO": 0.4,
       "answers": ["M*ERMA*ID","WAG*E","SMI*TH","HEM","AC*TION"],
-      "CRITERIA_2": "4_STARTS_H",
       "GOLD_WORD": "MAGIC",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL MAGIC IN ORDER",
       "NOTE": "Regarded as one of the greatest point guards in basketball history, Magic Johnson dominated the NBA during the 1980s by leading the Los Angeles Lakers to five championships and earning three MVP awards."
     },
     {
@@ -641,8 +686,9 @@
       "source": ["SIRENSOF","ATTACKON","TENNESSEE"],
       "VOWEL_RATIO": 0.4,
       "answers": ["T*EEN","ONI*ONS","SKAT*E","RA*TS","FEN*CES*"],
-      "CRITERIA_2": "1X_DOUBLE_E",
       "GOLD_WORD": "TITANS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TITANS IN ORDER",
       "NOTE": ""
     },
     {
@@ -655,8 +701,9 @@
       "source": ["LANDERS","CUSACK","WILSON"],
       "VOWEL_RATIO": 0.3158,
       "answers": ["WA*LL","SKIN*","SOUN*D","S*CARCE"],
-      "CRITERIA_2": "*_ENDS_S_NONE",
       "GOLD_WORD": "ANNS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ANNS IN ORDER",
       "NOTE": ""
     },
     {
@@ -669,8 +716,9 @@
       "source": ["GILGAMESH","ZIGGURATS","CUNEIFORM"],
       "VOWEL_RATIO": 0.3704,
       "answers": ["FOILS*","MU*GGING","M*ATH","GAZE*R","CR*UISE"],
-      "CRITERIA_2": "1_STARTS_F",
       "GOLD_WORD": "SUMER",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SUMER IN ORDER",
       "NOTE": ""
     },
     {
@@ -683,8 +731,9 @@
       "source": ["DARCY","BENNETS","PREJUDICE"],
       "VOWEL_RATIO": 0.381,
       "answers": ["JA*DED","BU*NS*","T*RIPE","RE*CEN*CY"],
-      "CRITERIA_2": "*_STARTS_R",
       "GOLD_WORD": "AUSTEN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL AUSTEN IN ORDER",
       "NOTE": ""
     },
     {
@@ -697,8 +746,9 @@
       "source": ["MARLINS","BLUEJAYS","PHILLIES"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["P*IL*L","RA*Y*S","B*USH","MA*IN","JEL*L*IES"],
-      "CRITERIA_2": "4_STARTS_M",
       "GOLD_WORD": "PLAYBALL",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PLAYBALL IN ORDER",
       "NOTE": ""
     },
     {
@@ -711,8 +761,9 @@
       "source": ["ZELDA","GANONDORF","BOKOBLINS"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["GL*AZE","I*RON","FLOODS","BON*D","BANK*"],
-      "CRITERIA_2": "3X_CONTAINS_O",
       "GOLD_WORD": "LINK",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LINK IN ORDER",
       "NOTE": "Despite only making their first appearance 15 years into the franchise's history, Bokoblins have since become The Legend of Zelda's most common and well-known enemy."
     },
     {
@@ -725,8 +776,9 @@
       "source": ["ONTARIO","RAPTORS","CNTOWER"],
       "VOWEL_RATIO": 0.381,
       "answers": ["ST*O*W","PAR*RO*T","CAN*INE","ROT*O*R"],
-      "CRITERIA_2": "3_STARTS_C",
       "GOLD_WORD": "TORONTO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TORONTO IN ORDER",
       "NOTE": ""
     },
     {
@@ -739,8 +791,9 @@
       "source": ["MARSELLUS","PUMPKIN","THEWOLF"],
       "VOWEL_RATIO": 0.3043,
       "answers": ["LOSE","P*ERMIT","HU*NK","FL*AW","SLUMP*"],
-      "CRITERIA_2": "3X_CONTAINS_L",
       "GOLD_WORD": "PULP",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PULP IN ORDER",
       "NOTE": "Pulp Fiction's other iconic characters: philosophical hitmen Jules (Samuel L. Jackson) and Vincent (John Travolta), mob wife Mia Wallace (Uma Thurman), and the tough-as-nails boxer Butch Coolidge (Bruce Willis)."
     },
     {
@@ -753,8 +806,9 @@
       "source": ["TRAFFIC","DIVORCE","SUPREME"],
       "VOWEL_RATIO": 0.381,
       "answers": ["FIRM","C*AVE","FO*CU*S","PEER*","DIRT*"],
-      "CRITERIA_2": "1_ENDS_M",
       "GOLD_WORD": "COURT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL COURT IN ORDER",
       "NOTE": "Originally referring to the enclosed outdoor courtyards of European royalty where early games like tennis were played, the word "
     },
     {
@@ -767,8 +821,9 @@
       "source": ["ANGELS","DODGERS","PITCHER"],
       "VOWEL_RATIO": 0.3,
       "answers": ["LEDGER","PO*RCH*","ST*A*G","SN*I*DE"],
-      "CRITERIA_2": "*_ENDS_S_NONE",
       "GOLD_WORD": "OHTANI",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL OHTANI IN ORDER",
       "NOTE": "Often described as a modern-day Babe Ruth, Japanese superstar Shohei Ohtani made Major League Baseball history by becoming the very first player to hit 50 home runs and steal 50 bases in a single season."
     },
     {
@@ -781,8 +836,9 @@
       "source": ["HERKIE","TOETOUCH","PYRAMID"],
       "VOWEL_RATIO": 0.4762,
       "answers": ["PEAC*H*Y","HUM","RE*E*K","IDIOT","R*OT"],
-      "CRITERIA_2": "2_CONTAINS_H",
       "GOLD_WORD": "CHEER",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CHEER IN ORDER",
       "NOTE": "The iconic 'Herkie' jump is named for Lawrence Herkimer, founder of the National Cheerleaders Association and a former cheerleader himself."
     },
     {
@@ -795,8 +851,9 @@
       "source": ["DIAMONDS","HEARTS","CLUBS"],
       "VOWEL_RATIO": 0.3158,
       "answers": ["C*ULT","HA*R*NESS","MAID*","BODS*"],
-      "CRITERIA_2": "*_DOUBLE_S",
       "GOLD_WORD": "CARDS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CARDS IN ORDER",
       "NOTE": ""
     },
     {
@@ -809,8 +866,9 @@
       "source": ["HORSESHOE","LADYBUG","SHAMROCK"],
       "VOWEL_RATIO": 0.375,
       "answers": ["MASHER","L*OU*D","C*HARGES","BOOK*","SHY*"],
-      "CRITERIA_2": "1_CONTAINS_M",
       "GOLD_WORD": "LUCKY",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LUCKY IN ORDER",
       "NOTE": "Medieval European farmers believed ladybugs were a gift from the Virgin Mary to save their crops from aphids, leading to the idea that one landing on a person will grant them good luck."
     },
     {
@@ -823,8 +881,9 @@
       "source": ["RIVEROUSE","STMARYS","MONKBAR"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["ARMY*","MO*RON","STAR*VE","USE","BRISK*"],
-      "CRITERIA_2": "1X_STARTS_A",
       "GOLD_WORD": "YORK",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL YORK IN ORDER",
       "NOTE": "York: A city in Northern England renowned for its well-preserved Roman- and Viking- era structures. A sequel, New York, was released in 1624."
     },
     {
@@ -837,8 +896,9 @@
       "source": ["CARPENTER","ARGENTINE","ACROBAT"],
       "VOWEL_RATIO": 0.4,
       "answers": ["RA*TE","BEARIN*G","TENOR","PACT*","CRANE"],
-      "CRITERIA_2": "3_STARTS_T",
       "GOLD_WORD": "ANT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ANT IN ORDER",
       "NOTE": ""
     },
     {
@@ -851,8 +911,9 @@
       "source": ["ANENOME","STARFISH","SEAHORSE"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["HAIR*","STE*AM","ONE*","SEASON","F*RESH"],
-      "CRITERIA_2": "2X_STARTS_S",
       "GOLD_WORD": "REEF",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL REEF IN ORDER",
       "NOTE": ""
     },
     {
@@ -865,8 +926,9 @@
       "source": ["GRETZKY","EDMONTON","HATTRICKS"],
       "VOWEL_RATIO": 0.2917,
       "answers": ["ZIG*","TR*E*KS","MA*T*H","CRO*NY","KN*OTTE*D"],
-      "CRITERIA_2": "5_DOUBLE_*",
       "GOLD_WORD": "GREATONE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL GREATONE IN ORDER",
       "NOTE": "Wayne Gretzky earned his 'Great One' moniker in Ontario's London Free Press at only age 10, following an incredible 400-goal season in his youth league."
     },
     {
@@ -879,8 +941,9 @@
       "source": ["SPAGHETTI","RIGATONI","FARFELLE"],
       "VOWEL_RATIO": 0.4,
       "answers": ["P*ALLET","GIRA*FFE","GHOS*T*","INERTIA*"],
-      "CRITERIA_2": "*_DOUBLE_F",
       "GOLD_WORD": "PASTA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PASTA IN ORDER",
       "NOTE": ""
     },
     {
@@ -893,8 +956,9 @@
       "source": ["COACHELLA","WOODSTOCK","BONNAROO"],
       "VOWEL_RATIO": 0.4231,
       "answers": ["C*ANAL","SWO*ON*","C*OOKE*D","BR*OACH","T*OOL"],
-      "CRITERIA_2": "2X_DOUBLE_O",
       "GOLD_WORD": "CONCERT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CONCERT IN ORDER",
       "NOTE": ""
     },
     {
@@ -907,8 +971,9 @@
       "source": ["PAVAROTTI","DOMINGO","CARRERAS"],
       "VOWEL_RATIO": 0.4167,
       "answers": ["MORT*AR","AGE*","PAIN*T","CO*R*D","S*AVIOR"],
-      "CRITERIA_2": "2X_ENDS_R",
       "GOLD_WORD": "TENORS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TENORS IN ORDER",
       "NOTE": ""
     },
     {
@@ -921,8 +986,9 @@
       "source": ["RICOCASEK","NEWWAVE","SHAKEITUP"],
       "VOWEL_RATIO": 0.44,
       "answers": ["WENT*","ACH*IEVE*","C*A*USE","WR*AP","KIOS*K"],
-      "CRITERIA_2": "2X_STARTS_W",
       "GOLD_WORD": "THECARS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL THECARS IN ORDER",
       "NOTE": "Emerging from the late-1970s new wave scene, The Cars pioneered a blend of guitar-oriented rock with synth-pop through megahits like 'You Might Think' and 'My Best Friend's Girl'."
     },
     {
@@ -935,8 +1001,9 @@
       "source": ["APPLEOFMY","BLINKOFAN","PRIVATE"],
       "VOWEL_RATIO": 0.4,
       "answers": ["FILLE*R","FOAM","BANK","POPPY*","NATIVE*"],
-      "CRITERIA_2": "2X_DOUBLE_*",
       "GOLD_WORD": "EYE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL EYE IN ORDER",
       "NOTE": "The term 'private eye' originates from the 19th-century Pinkerton National Detective Agency, whose iconic logo featured a wide-open eye paired with the motto 'We Never Sleep.'"
     },
     {
@@ -949,8 +1016,9 @@
       "source": ["PUNCHING","SLEEPING","GARBAGE"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["B*IN","NA*GGING*","CAPE","G*ULP","S*HEER"],
-      "CRITERIA_2": "3_STARTS_C",
       "GOLD_WORD": "BAGGS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BAGGS IN ORDER",
       "NOTE": ""
     },
     {
@@ -963,8 +1031,9 @@
       "source": ["GUINEVERE","LANCELOT","MERLIN"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["C*A*NNER","M*ULE","REE*L*ING","VIO*LET*"],
-      "CRITERIA_2": "*_STARTS_V",
       "GOLD_WORD": "CAMELOT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CAMELOT IN ORDER",
       "NOTE": ""
     },
     {
@@ -977,8 +1046,9 @@
       "source": ["ANTIGONE","PYGMALION","FENCES"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["OP*TION","CL*EAN","FA*N","GY*M","GENIES*"],
-      "CRITERIA_2": "3X_ENDS_N",
       "GOLD_WORD": "PLAYS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PLAYS IN ORDER",
       "NOTE": ""
     },
     {
@@ -991,8 +1061,9 @@
       "source": ["FRIENDS","THEOFFICE","GOODTIMES"],
       "VOWEL_RATIO": 0.4,
       "answers": ["FIFES*","DI*T*TO","C*HIEF","GRO*OM*","DENS*E"],
-      "CRITERIA_2": "*_ENDS_O",
       "GOLD_WORD": "SITCOMS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SITCOMS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1005,8 +1076,9 @@
       "source": ["JOYLUCK","CULTURE","BREAKFAST"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["FAC*T","L*U*CKY","JOKER","RUB*","S*ALUTE"],
-      "CRITERIA_2": "1X_STARTS_R",
       "GOLD_WORD": "CLUBS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CLUBS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1019,8 +1091,9 @@
       "source": ["HIGHLIFE","ASHANTI","KELEWELE"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["SIEG*E","WH*A*LE","KEEN*","HA*IL","FILTH"],
-      "CRITERIA_2": "1X_DOUBLE_E",
       "GOLD_WORD": "GHANA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL GHANA IN ORDER",
       "NOTE": ""
     },
     {
@@ -1033,8 +1106,9 @@
       "source": ["MINNESOTA","RUTGERS","NEBRASKA"],
       "VOWEL_RATIO": 0.375,
       "answers": ["B*ONUS","SI*STER","RANG*E","MAT*E*","RAN*K"],
-      "CRITERIA_2": "1X_ENDS_K",
       "GOLD_WORD": "BIGTEN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BIGTEN IN ORDER",
       "NOTE": "The Big Ten is the oldest Division I collegiate athletic conference in the United States, famously keeping its historic name despite having since expanded to include eighteen(!) different universities."
     },
     {
@@ -1047,8 +1121,9 @@
       "source": ["HITCHCOCK","PERKINS","MYSTERY"],
       "VOWEL_RATIO": 0.3043,
       "answers": ["CHIMP*","S*TINKY*","SKETC*H*Y","CO*RER"],
-      "CRITERIA_2": "2X_STARTS_S",
       "GOLD_WORD": "PSYCHO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PSYCHO IN ORDER",
       "NOTE": ""
     },
     {
@@ -1061,8 +1136,9 @@
       "source": ["BLACKPINK","SUPERFANS","GOLDEN"],
       "VOWEL_RATIO": 0.2917,
       "answers": ["LENS","FLICK*ER","P*O*UND","GASP*","BANK"],
-      "CRITERIA_2": "1X_STARTS_G",
       "GOLD_WORD": "KPOP",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL KPOP IN ORDER",
       "NOTE": ""
     },
     {
@@ -1075,8 +1151,9 @@
       "source": ["STRUDEL","PALMIER","STICKYBUN"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["P*UTRID","MENA*CE","LUS*T*","BR*ISKLY*"],
-      "CRITERIA_2": "1_ENDS_D",
       "GOLD_WORD": "PASTRY",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PASTRY IN ORDER",
       "NOTE": ""
     },
     {
@@ -1089,8 +1166,9 @@
       "source": ["LONDONER","SKYFALL","HELLO"],
       "VOWEL_RATIO": 0.35,
       "answers": ["YOLK","SNA*RL","D*E*N","FOOL*","HE*LL"],
-      "CRITERIA_2": "1_CONTAINS_Y",
       "GOLD_WORD": "ADELE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ADELE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1103,8 +1181,9 @@
       "source": ["WORLDWAR","ITTAKES","TABLEFOR"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["WAT*ER","FILLS","DRAW*","BOO*K","TREAT"],
-      "CRITERIA_2": "1X_STARTS_W",
       "GOLD_WORD": "TWO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TWO IN ORDER",
       "NOTE": "The modern visual shape of the numeral '2' evolved from ancient Indian Brahmi script, where it was originally written simply as two unconnected horizontal lines."
     },
     {
@@ -1117,8 +1196,9 @@
       "source": ["CAMERON","RUSSELL","JACKDAWS"],
       "VOWEL_RATIO": 0.3182,
       "answers": ["SLAC*KER","R*O*UNDS","JAW*","CAME*LS*"],
-      "CRITERIA_2": "1X_STARTS_S",
       "GOLD_WORD": "CROWES",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CROWES IN ORDER",
       "NOTE": "My apologies to the small contingent of people who don't consider jackdaws crows – and the large contigent who will note that 'crows' isn't spelled with an E."
     },
     {
@@ -1131,8 +1211,9 @@
       "source": ["POPCORN","THEATER","SHOWTIME"],
       "VOWEL_RATIO": 0.3636,
       "answers": ["C*HOP","I*N*ERT","SE*EM*","WA*RT","PHOTO"],
-      "CRITERIA_2": "*_ENDS_S_NONE",
       "GOLD_WORD": "CINEMA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CINEMA IN ORDER",
       "NOTE": ""
     },
     {
@@ -1145,8 +1226,9 @@
       "source": ["AXLROSE","JIMDAVIS","JOHNGREEN"],
       "VOWEL_RATIO": 0.375,
       "answers": ["H*AVE","GO*LDEN","JAR","JO*INS*","MI*XE*R*S"],
-      "CRITERIA_2": "4_STARTS_J",
       "GOLD_WORD": "HOOSIER",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL HOOSIER IN ORDER",
       "NOTE": ""
     },
     {
@@ -1159,8 +1241,9 @@
       "source": ["NOTREDAME","CHARTRES","COLOGNE"],
       "VOWEL_RATIO": 0.375,
       "answers": ["C*A*RGO","T*ENTH*","ONCE*","ORD*ER*","MA*L*ES*"],
-      "CRITERIA_2": "3X_CONTAINS_O",
       "GOLD_WORD": "CATHEDRALS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CATHEDRALS IN ORDER",
       "NOTE": "Upon its completion in 1165, the Chartres Cathedral was the second-tallest structure in the world (after the Great Pyramid)."
     },
     {
@@ -1173,8 +1256,9 @@
       "source": ["GRANDSLAM","TENNIS","GOLDMEDAL"],
       "VOWEL_RATIO": 0.2917,
       "answers": ["ODDS*","ANTLE*R*","ME*N*D","GLAM","SIGNA*L"],
-      "CRITERIA_2": "1_STARTS_O",
       "GOLD_WORD": "SERENA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SERENA IN ORDER",
       "NOTE": ""
     },
     {
@@ -1187,8 +1271,9 @@
       "source": ["UMBRELLA","DISTURBIA","TAKEABOW"],
       "VOWEL_RATIO": 0.44,
       "answers": ["BOA","TUMBLER*","AUDI*T","BR*AI*SE","WALK"],
-      "CRITERIA_2": "5_CONTAINS_W",
       "GOLD_WORD": "RIRI",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL RIRI IN ORDER",
       "NOTE": ""
     },
     {
@@ -1201,8 +1286,9 @@
       "source": ["POINTE","ALLEGRO","BARRE"],
       "VOWEL_RATIO": 0.4444,
       "answers": ["ROB*E","RA*GER","L*ION","L*E*APT*"],
-      "CRITERIA_2": "1X_ENDS_N",
       "GOLD_WORD": "BALLET",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BALLET IN ORDER",
       "NOTE": ""
     },
     {
@@ -1215,8 +1301,9 @@
       "source": ["FOXTROT","NOVEMBER","YANKEE"],
       "VOWEL_RATIO": 0.4286,
       "answers": ["BEEN*","FA*X","ROT*","TRO*VE","MONKEY"],
-      "CRITERIA_2": "*_DOUBLE_E",
       "GOLD_WORD": "NATO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL NATO IN ORDER",
       "NOTE": ""
     },
     {
@@ -1229,8 +1316,9 @@
       "source": ["BARCELONA","CELTAVIGO","VALENCIA"],
       "VOWEL_RATIO": 0.4615,
       "answers": ["L*A*VA","INCL*I*NE","LOCATE","CAG*E","BRA*VO"],
-      "CRITERIA_2": "3_STARTS_L",
       "GOLD_WORD": "LALIGA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LALIGA IN ORDER",
       "NOTE": "La Liga, the highest-level professional soccer league in Spain, is usually considered the best in the world behind the English Premier League."
     },
     {
@@ -1243,8 +1331,9 @@
       "source": ["LOVBACKEN","EKTORP","FARGRIK"],
       "VOWEL_RATIO": 0.3182,
       "answers": ["CORK","GRI*EF","BALK*","VE*TO","PRA*NK"],
-      "CRITERIA_2": "3X_ENDS_K",
       "GOLD_WORD": "IKEA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL IKEA IN ORDER",
       "NOTE": "IKEA's best-selling item, the Billy bookcase, has lining the halls of its blue-and-yellow stores since 1979."
     },
     {
@@ -1257,8 +1346,9 @@
       "source": ["CHEERS","SPINOFF","RADIOHOST"],
       "VOWEL_RATIO": 0.3636,
       "answers": ["OF*FER*","HA*NDS*","SOP","SI*TE*","CHOIR*"],
-      "CRITERIA_2": "3_STARTS_S",
       "GOLD_WORD": "FRASIER",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL FRASIER IN ORDER",
       "NOTE": ""
     },
     {
@@ -1271,8 +1361,9 @@
       "source": ["DRESSER","WARDROBE","CUPBOARD"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["DRAW*ER","ABSO*RB","SCO*PE","RUDD*ER"],
-      "CRITERIA_2": "*_ENDS_B",
       "GOLD_WORD": "WOOD",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL WOOD IN ORDER",
       "NOTE": ""
     },
     {
@@ -1285,8 +1376,9 @@
       "source": ["PISTOLS","BUZZCOCKS","RAMONES"],
       "VOWEL_RATIO": 0.3043,
       "answers": ["CAMP*U*S","SOOT","N*OZZLES","BRICK*S"],
-      "CRITERIA_2": "3X_ENDS_S",
       "GOLD_WORD": "PUNK",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PUNK IN ORDER",
       "NOTE": ""
     },
     {
@@ -1299,8 +1391,9 @@
       "source": ["SHEEPDOGS","SAMOYEDS","BRIARDS"],
       "VOWEL_RATIO": 0.375,
       "answers": ["SH*ADE*S","SPIDER*","D*AM","OBE*Y","GR*OSS*"],
-      "CRITERIA_2": "3X_CONTAINS_E",
       "GOLD_WORD": "HERDERS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL HERDERS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1313,8 +1406,9 @@
       "source": ["HOOKSHOT","MIDRANGE","FADEAWAY"],
       "VOWEL_RATIO": 0.4583,
       "answers": ["H*O*OF","WATER*","S*HAKY","AGAIN","DOME*D"],
-      "CRITERIA_2": "4_STARTS_A",
       "GOLD_WORD": "HORSE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL HORSE IN ORDER",
       "NOTE": "Now largely known as an iconic basketball shot, the 'fadeaway' actually began as a baseball term in the early 1900s."
     },
     {
@@ -1327,8 +1421,9 @@
       "source": ["SURGEONS","MCDREAMY","MEREDITH"],
       "VOWEL_RATIO": 0.375,
       "answers": ["G*RID","ENTER*","SUMME*R","DECOY*","S*HAM"],
-      "CRITERIA_2": "*_ENDS_E_NONE",
       "GOLD_WORD": "GREYS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL GREYS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1341,8 +1436,9 @@
       "source": ["MOUNTHOOD","GOONIES","BEAVERS"],
       "VOWEL_RATIO": 0.4783,
       "answers": ["SO*DA","R*OUSE*","EIG*HT","VENO*M","BOON*"],
-      "CRITERIA_2": "1X_STARTS_V",
       "GOLD_WORD": "OREGON",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL OREGON IN ORDER",
       "NOTE": ""
     },
     {
@@ -1355,8 +1451,9 @@
       "source": ["ISHMAEL","STARBUCK","MOBYDICK"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["A*YE","DISK","CH*UCK","LA*ST","BRIM","MOB*"],
-      "CRITERIA_2": "2X_ENDS_K",
       "GOLD_WORD": "AHAB",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL AHAB IN ORDER",
       "NOTE": "The character of Starbuck indeed gave name to the iconic coffee chain, whose founders wished to pay homage to the early seafarers who shipped coffee across the globe."
     },
     {
@@ -1369,8 +1466,9 @@
       "source": ["PARKPLACE","STCHARLES","GOTOJAIL"],
       "VOWEL_RATIO": 0.3462,
       "answers": ["P*ALA*TE","HACKERS*","JOLTS*","G*RIP","CO*LA"],
-      "CRITERIA_2": "1X_ENDS_P",
       "GOLD_WORD": "PASSGO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PASSGO IN ORDER",
       "NOTE": ""
     },
     {
@@ -1383,8 +1481,9 @@
       "source": ["ELLINGTON","DENNIS","NUKEM"],
       "VOWEL_RATIO": 0.35,
       "answers": ["D*EMON","NU*LL","K*NIT","E*NGINES*"],
-      "CRITERIA_2": "1X_STARTS_K",
       "GOLD_WORD": "DUKES",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL DUKES IN ORDER",
       "NOTE": "These 'Dukes' aren't literal royalty (except in the eyes of their fans): they're jazz legend Duke Ellington, iconic 90s video game action hero Duke Nukem, and popular YouTuber Duke Dennis."
     },
     {
@@ -1397,8 +1496,9 @@
       "source": ["WORLDCUP","NUMBERTEN","BRAZIL"],
       "VOWEL_RATIO": 0.3043,
       "answers": ["RUNT","ZAP*","CLOWNE*D","RIB","RUMBL*E*"],
-      "CRITERIA_2": "3X_STARTS_R",
       "GOLD_WORD": "PELE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PELE IN ORDER",
       "NOTE": "Pele first wore his iconic #10 at the 1958 World Cup; Brazil had not numbered its players, so a jersey number was assigned to him by FIFA."
     },
     {
@@ -1411,8 +1511,9 @@
       "source": ["QUEENS","MYADIDAS","ITSTRICKY"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["AR*K","SQU*IN*T","SID*E","M*ISTY","DEC*AY"],
-      "CRITERIA_2": "1X_ENDS_Y",
       "GOLD_WORD": "RUNDMC",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL RUNDMC IN ORDER",
       "NOTE": "While Run-DMC's 1986 hit 'My Adidas' originated from a genuine affinity for the footwear, it led to a $1.6 million brand deal later that year."
     },
     {
@@ -1425,8 +1526,9 @@
       "source": ["WALLACE","STEVENSON","CONNERY"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["S*NOWY","C*LEAN","CLO*VER","NEAT*ENS*"],
-      "CRITERIA_2": "1_ENDS_Y",
       "GOLD_WORD": "SCOTS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SCOTS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1439,8 +1541,9 @@
       "source": ["MELANGE","SANDWORMS","STILLSUIT"],
       "VOWEL_RATIO": 0.32,
       "answers": ["RAGS","D*AU*NTS","WOMEN*","LIMITS","SE*LL"],
-      "CRITERIA_2": "4_CONTAINS_L",
       "GOLD_WORD": "DUNE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL DUNE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1453,8 +1556,9 @@
       "source": ["LANNISTER","BARATHEON","STARK"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["T*ANK","EARTH*","TR*AIN","BO*RN*","SE*ALS*"],
-      "CRITERIA_2": "2X_STARTS_T",
       "GOLD_WORD": "THRONES",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL THRONES IN ORDER",
       "NOTE": ""
     },
     {
@@ -1467,8 +1571,9 @@
       "source": ["TOUCANSAM","MRCLEAN","BOOBERRY"],
       "VOWEL_RATIO": 0.4167,
       "answers": ["ALARM*","MA*NOR","OBS*C*URE","BO*Y","CENT*"],
-      "CRITERIA_2": "1X_STARTS_A",
       "GOLD_WORD": "MASCOT",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL MASCOT IN ORDER",
       "NOTE": ""
     },
     {
@@ -1481,8 +1586,9 @@
       "source": ["PICASSO","BRAQUE","METZINGER"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["AC*E","QU*IZ","AMB*ER","REI*GN","S*T*OPS"],
-      "CRITERIA_2": "*_STARTS_Z_NONE",
       "GOLD_WORD": "CUBIST",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL CUBIST IN ORDER",
       "NOTE": "Pioneered in the early 20th century by Pablo Picasso and Georges Braque, Cubism was a revolutionary art movement that broke subjects down into geometric shapes to display multiple viewpoints simultaneously."
     },
     {
@@ -1495,8 +1601,9 @@
       "source": ["REPUBLIC","SYMPOSIUM","DIALECTIC"],
       "VOWEL_RATIO": 0.4231,
       "answers": ["CUP*S","BULL*Y","MA*IMED","CRIT*IC","PO*ISE"],
-      "CRITERIA_2": "1X_ENDS_C",
       "GOLD_WORD": "PLATO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PLATO IN ORDER",
       "NOTE": ""
     },
     {
@@ -1509,8 +1616,9 @@
       "source": ["BLEACH","SLAMDUNK","NARUTO"],
       "VOWEL_RATIO": 0.35,
       "answers": ["DUCKS*","H*ALO*","MAN*","BE*T","LUN*AR"],
-      "CRITERIA_2": "1_STARTS_D",
       "GOLD_WORD": "SHONEN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SHONEN IN ORDER",
       "NOTE": "Shonen: The most popular genre of manga and anime in Japan, generally consisting of action-packed titles targeted towards young men. Sadly, DRAGON BALL Z didn't fit!"
     },
     {
@@ -1523,8 +1631,9 @@
       "source": ["CAPRICORN","SCORPIO","GEMINI"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["CRIS*P","COMI*C","IRON","ORG*AN*","PIE"],
-      "CRITERIA_2": "1X_STARTS_I",
       "GOLD_WORD": "SIGN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SIGN IN ORDER",
       "NOTE": ""
     },
     {
@@ -1537,8 +1646,9 @@
       "source": ["DIABLO","COUNTACH","MIURA"],
       "VOWEL_RATIO": 0.4737,
       "answers": ["L*A*UNCH","OM*IT","CRAB*","AUDIO*"],
-      "CRITERIA_2": "1X_STARTS_A",
       "GOLD_WORD": "LAMBO",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LAMBO IN ORDER",
       "NOTE": ""
     },
     {
@@ -1551,8 +1661,9 @@
       "source": ["MARSUPIAL","NOCTURNAL","OUTBACK"],
       "VOWEL_RATIO": 0.4,
       "answers": ["SMACK*","CO*RRUPT","OUT","A*NNUAL*","BA*IL"],
-      "CRITERIA_2": "2_CONTAINS_U",
       "GOLD_WORD": "KOALA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL KOALA IN ORDER",
       "NOTE": ""
     },
     {
@@ -1565,8 +1676,9 @@
       "source": ["JAMESMADI","THOMASEDI","MAGICJOHN"],
       "VOWEL_RATIO": 0.4074,
       "answers": ["CHIMES*","HIM","GO*AT","JOIN*","MADAMS*","JADE"],
-      "CRITERIA_2": "2_ENDS_M",
       "GOLD_WORD": "SONS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SONS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1579,8 +1691,9 @@
       "source": ["TORONTO","WINNIPEG","MONTREAL"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["M*ORE","TA*P*","TONING","L*OON","WINTE*R"],
-      "CRITERIA_2": "*_DOUBLE_*",
       "GOLD_WORD": "MAPLE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL MAPLE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1593,8 +1706,9 @@
       "source": ["PONDEROSA","VIRGINIA","LOBLOLLY"],
       "VOWEL_RATIO": 0.44,
       "answers": ["P*OLL","OI*LY","RAVIOLI","BAN*G","DRONE*S"],
-      "CRITERIA_2": "1X_ENDS_I",
       "GOLD_WORD": "PINE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL PINE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1607,8 +1721,9 @@
       "source": ["JOHNWICK","CYBERPUNK","THEMATRIX"],
       "VOWEL_RATIO": 0.3077,
       "answers": ["THICK*ET","CHOKE*","BRA*WNY","JIN*X","RU*MP"],
-      "CRITERIA_2": "*_ENDS_X",
       "GOLD_WORD": "KEANU",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL KEANU IN ORDER",
       "NOTE": ""
     },
     {
@@ -1621,8 +1736,9 @@
       "source": ["FALCONS","OUTKAST","COCACOLA"],
       "VOWEL_RATIO": 0.4091,
       "answers": ["COA*ST*AL*","SA*CK","COCON*UT*","LOA*F"],
-      "CRITERIA_2": "2X_STARTS_C",
       "GOLD_WORD": "ATLANTA",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ATLANTA IN ORDER",
       "NOTE": "The name of Atlanta's football team was coined in 1965 by schoolteacher Julia Elliott, who noted that a falcon 'never drops its prey'."
     },
     {
@@ -1635,8 +1751,9 @@
       "source": ["DENALI","EVEREST","ELBRUS"],
       "VOWEL_RATIO": 0.4211,
       "answers": ["T*R*UE","LE*VE*L*","DI*N*E*RS","BASE"],
-      "CRITERIA_2": "4_STARTS_B",
       "GOLD_WORD": "TREELINE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TREELINE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1649,8 +1766,9 @@
       "source": ["MORRISON","MANZAREK","DENSMORE"],
       "VOWEL_RATIO": 0.375,
       "answers": ["D*O*RM","NINE","MO*NKS","ERROR*","AMAZES*"],
-      "CRITERIA_2": "*_STARTS_E",
       "GOLD_WORD": "DOORS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL DOORS IN ORDER",
       "NOTE": "With apologies to Doors guitarist Robby Krieger, the legend who composed 'Light My Fire'. Sorry, Robby, I could only fit three!"
     },
     {
@@ -1663,8 +1781,9 @@
       "source": ["MEASURING","ESPRESSO","SLOTTED"],
       "VOWEL_RATIO": 0.375,
       "answers": ["REUS*E","DIP*S","RO*SES","LO*ST","MAGN*ET"],
-      "CRITERIA_2": "1_CONTAINS_U",
       "GOLD_WORD": "SPOON",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SPOON IN ORDER",
       "NOTE": "Victorian dining etiquette featured a dizzying array of hyper-specific cutlery, famously including the 'mustache spoon,' which was designed with a special guard to keep soup out of a gentleman's waxed facial hair."
     },
     {
@@ -1677,8 +1796,9 @@
       "source": ["REEBOK","SKECHERS","ADIDAS"],
       "VOWEL_RATIO": 0.4,
       "answers": ["REEKS*","CH*AIR","ABO*DE","DE*SKS"],
-      "CRITERIA_2": "*_STARTS_A",
       "GOLD_WORD": "SHOE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SHOE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1691,8 +1811,9 @@
       "source": ["TOMSAWYER","HUCKFINN","TOMCANTY"],
       "VOWEL_RATIO": 0.36,
       "answers": ["T*OTEM","FAW*N","CHA*RI*TY","SUNN*Y","MOCK"],
-      "CRITERIA_2": "*_ENDS_S_NONE",
       "GOLD_WORD": "TWAIN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL TWAIN IN ORDER",
       "NOTE": ""
     },
     {
@@ -1705,8 +1826,9 @@
       "source": ["LISTON","FRAZIER","FOREMAN"],
       "VOWEL_RATIO": 0.4,
       "answers": ["TRA*IN","RAFFL*E","ZOOM","RI*NSE"],
-      "CRITERIA_2": "2X_DOUBLE_*",
       "GOLD_WORD": "ALI",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL ALI IN ORDER",
       "NOTE": ""
     },
     {
@@ -1719,8 +1841,9 @@
       "source": ["KINGPIN","DOCOCK","GWENSTACY"],
       "VOWEL_RATIO": 0.3182,
       "answers": ["S*P*AT","WI*NING","D*OG","NE*CK","COCKY*"],
-      "CRITERIA_2": "1X_ENDS_T",
       "GOLD_WORD": "SPIDEY",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL SPIDEY IN ORDER",
       "NOTE": "Marvel publisher Martin Goodman initially rejected Stan Lee's pitch for Spider-Man, arguing that people inherently hated spiders and that a superhero possessing arachnid-like abilities would simply be too creepy for readers to enjoy."
     },
     {
@@ -1733,8 +1856,9 @@
       "source": ["BUCCANEER","DOUBLOONS","EYEPATCH"],
       "VOWEL_RATIO": 0.4615,
       "answers": ["CEDE","CUBE","AB*HO*R","UPO*N","ST*AY*","CLONE"],
-      "CRITERIA_2": "3X_STARTS_C",
       "GOLD_WORD": "BOOTY",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BOOTY IN ORDER",
       "NOTE": "Like countless other pirate tropes, the phrase 'X marks the spot' can be attributed to Robert Louis Stevenson’s 1883 novel Treasure Island."
     },
     {
@@ -1747,8 +1871,9 @@
       "source": ["NORMANDY","PAINTINGS","LILIES"],
       "VOWEL_RATIO": 0.3913,
       "answers": ["M*ANY","IDO*L","SPIN*NE*R","GAIN","LIST*"],
-      "CRITERIA_2": "3_DOUBLE_*",
       "GOLD_WORD": "MONET",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL MONET IN ORDER",
       "NOTE": ""
     },
     {
@@ -1761,8 +1886,9 @@
       "source": ["PLATINUM","MAGNESIUM","TITANIUM"],
       "VOWEL_RATIO": 0.44,
       "answers": ["M*UTE*","AIMING","PUT*","UNITS","MA*IL*MAN"],
-      "CRITERIA_2": "1X_STARTS_U",
       "GOLD_WORD": "METAL",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL METAL IN ORDER",
       "NOTE": "Accounting for roughly three-quarters of the 118 known elements on the periodic table, elemental metals are broadly defined chemically as substances that readily lose electrons to form positive ions, making them excellent conductors of heat and electricity."
     },
     {
@@ -1775,8 +1901,9 @@
       "source": ["GERMANY","MIDLANDS","TIMOR"],
       "VOWEL_RATIO": 0.35,
       "answers": ["MAD","ME*MOIR","DA*RN","S*T*YLING"],
-      "CRITERIA_2": "2X_STARTS_M",
       "GOLD_WORD": "EAST",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL EAST IN ORDER",
       "NOTE": "Encompassing a diverse region of central England, the East Midlands is perhaps most famous worldwide as the home of Sherwood Forest and the legendary outlaw Robin Hood."
     },
     {
@@ -1789,8 +1916,9 @@
       "source": ["BARKER","BELCHER","SIDESHOW"],
       "VOWEL_RATIO": 0.3333,
       "answers": ["B*EACH","WO*RLDS","B*EER","HIKERS*"],
-      "CRITERIA_2": "1X_STARTS_W",
       "GOLD_WORD": "BOBS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL BOBS IN ORDER",
       "NOTE": ""
     },
     {
@@ -1803,8 +1931,9 @@
       "source": ["RAILWAY","SCOTLAND","STOMPTHE"],
       "VOWEL_RATIO": 0.3478,
       "answers": ["MY*TH","TA*LL","STR*AW","PIANO","COD*ES"],
-      "CRITERIA_2": "1X_ENDS_O",
       "GOLD_WORD": "YARD",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL YARD IN ORDER",
       "NOTE": "Despite serving as the headquarters for London's Metropolitan Police, Scotland Yard takes its name from the building's original 1829 rear entrance on a street where Scottish royalty used to stay."
     },
     {
@@ -1817,8 +1946,9 @@
       "source": ["LETTERMAN","OBRIEN","FALLON"],
       "VOWEL_RATIO": 0.381,
       "answers": ["MORN","FL*A*T*","LE*AN*","BI*T*E*","LONER"],
-      "CRITERIA_2": "2X_STARTS_L",
       "GOLD_WORD": "LATENITE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LATENITE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1831,8 +1961,9 @@
       "source": ["PERSIAN","CASTELO","CALAMANSI"],
       "VOWEL_RATIO": 0.4348,
       "answers": ["ACT","SAL*SA","PEAS","COI*N","M*INE*RAL"],
-      "CRITERIA_2": "1X_STARTS_A",
       "GOLD_WORD": "LIME",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL LIME IN ORDER",
       "NOTE": "Though heavily associated with Latin American cuisine today, the lime actually originated in the tropical regions of Southeast Asia and was introduced to the rest of the world through early spice trade routes."
     },
     {
@@ -1845,8 +1976,9 @@
       "source": ["GORILLA","ELMERS","SUPER"],
       "VOWEL_RATIO": 0.3889,
       "answers": ["G*RILLER","PEARL*S","MOU*SE*"],
-      "CRITERIA_2": "1_DOUBLE_*",
       "GOLD_WORD": "GLUE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL GLUE IN ORDER",
       "NOTE": ""
     },
     {
@@ -1859,8 +1991,9 @@
       "source": ["KEUKENHOF","STOURHEAD","LONGWOOD"],
       "VOWEL_RATIO": 0.4231,
       "answers": ["HUNG*","OUTWA*R*D","HOOKED*","KE*EN*","FOOLS"],
-      "CRITERIA_2": "2X_STARTS_H",
       "GOLD_WORD": "GARDEN",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL GARDEN IN ORDER",
       "NOTE": "Often referred to as the "
     },
     {
@@ -1873,8 +2006,9 @@
       "source": ["THRILLER","WESTERN","GANGSTER"],
       "VOWEL_RATIO": 0.2609,
       "answers": ["G*RANT","WHIRL","STE*RN*","STEER*","GE*L"],
-      "CRITERIA_2": "2_STARTS_W",
       "GOLD_WORD": "GENRE",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL GENRE IN ORDER",
       "NOTE": "Reaching their absolute peak of popularity during the 1950s, Westerns dominated the American box office and television screens, accounting for roughly a quarter of all Hollywood films produced during that decade."
     },
     {
@@ -1887,8 +2021,9 @@
       "source": ["HARRISON","GERALD","FIESTA"],
       "VOWEL_RATIO": 0.4,
       "answers": ["F*O*RAGE","LAIR*","STAND*","HIRES*"],
-      "CRITERIA_2": "1X_STARTS_S",
       "GOLD_WORD": "FORDS",
+      "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+      "CRITERIA_PERFECT": "GOLD TILES SPELL FORDS IN ORDER",
       "NOTE": "Originally developed in response to the 1973 oil crisis, the Ford Fiesta was a highly successful, fuel-efficient supermini car that sold over 22 million units worldwide before its long production run finally ended in 2023."
     }
   ]

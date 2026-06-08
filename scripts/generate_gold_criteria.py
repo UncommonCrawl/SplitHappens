@@ -170,9 +170,6 @@ def enrich_level(level: dict, level_index: int) -> dict:
     level_id = get_level_id(level, level_index)
     source_words = require_words(level, level_index, "source", re.compile(r"^[A-Z]+$"))
     answers = require_words(level, level_index, "answers", re.compile(r"^[A-Z*]+$"))
-    criteria_2 = level.get("CRITERIA_2")
-    if not isinstance(criteria_2, str) or not criteria_2.strip():
-        raise ValueError(f"Level {level_index + 1} ({level_id}) is missing a valid CRITERIA_2 string.")
 
     assert_source_target_match(level, level_index, source_words, answers)
 
@@ -188,10 +185,10 @@ def enrich_level(level: dict, level_index: int) -> dict:
         "source": source_words,
         "VOWEL_RATIO": calculate_vowel_ratio(source_words),
         "answers": answers,
-        "CRITERIA_2": criteria_2.strip(),
         "GOLD_WORD": gold_word,
+        "CRITERIA_REGULAR": "[ROWS COMPLETED]/[TOTAL ROWS] WORDS",
+        "CRITERIA_PERFECT": f"GOLD TILES SPELL {gold_word} IN ORDER",
         "NOTE": str(level.get("NOTE", "")),
-        "CRITERIA_3": f"GOLD TILES SPELL {gold_word} IN ORDER",
     }
     return enriched
 

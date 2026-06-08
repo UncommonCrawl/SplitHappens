@@ -102,13 +102,6 @@ function malformedReason(level) {
     if (!isWordArray(level.answers, /^[A-Z*]+$/)) {
         return "answers must be a non-empty array of A-Z/* words";
     }
-    if (typeof level.CRITERIA_2 !== "string" || !level.CRITERIA_2.trim()) {
-        return "missing valid CRITERIA_2";
-    }
-    const normalizedCriterion = level.CRITERIA_2.trim().toUpperCase();
-    if (!/^[A-Z0-9_\*\[\]\/ ]+$/.test(normalizedCriterion)) {
-        return "CRITERIA_2 contains invalid characters";
-    }
     const expectedSourceWordLengths = level.source.map((word) => word.length);
     const expectedTargetRowCount = level.answers.length;
     const expectedTargetRowLengths = level.answers.map((word) => word.replace(/\*/g, "").length);
