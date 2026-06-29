@@ -622,11 +622,6 @@ struct WordList {
     private let words: Set<String>
 
     init() {
-        if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
-            words = []
-            return
-        }
-
         guard let url = ResourceBundle.url(forResource: "words", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let decoded = try? JSONDecoder().decode([String].self, from: data) else {
@@ -1076,6 +1071,7 @@ private enum BoardUI {
     static let targetTileHorizontalSpacing: CGFloat = 4
     static let targetTileVerticalSpacing: CGFloat = 12
     static let criteriaSpacing: CGFloat = 12
+    static let criteriaCount = 2
     static let criteriaHorizontalInset: CGFloat = 0
     static let criteriaGateSize: CGFloat = 18
     static var criteriaTabSpacing: CGFloat = 0
@@ -1818,7 +1814,7 @@ private struct BoardLayout {
         }
 
         func criteriaHeightCap(forSharedWidth width: CGFloat) -> CGFloat {
-            let rowCount = 3
+            let rowCount = BoardUI.criteriaCount
             let tabsWidth = max(40, width - (BoardUI.criteriaHorizontalInset * 2))
             return max(
                 40,
@@ -1956,14 +1952,9 @@ struct ContentView: View {
         let message: String
     }
 
-    private static let isRunningInPreviews = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
-    private static let previewRecentLevelCount = 24
     private static let levelDateCalendar = Calendar(identifier: .gregorian)
     private static var levelContent = LevelContentStore.loadStartupSnapshot(calendar: levelDateCalendar)
-    private static var cachedActiveLevels: [LevelDefinition] = levelContent.activeLevels(
-        isRunningInPreviews: isRunningInPreviews,
-        previewRecentLevelCount: previewRecentLevelCount
-    )
+    private static var cachedActiveLevels: [LevelDefinition] = levelContent.activeLevels()
     private static var cachedDailyScheduleDateByLevelID: [String: Date] = levelContent.schedule.dateByLevelID
     private static var cachedBoardGrid: BoardGridMetrics = BoardGridMetrics(levels: cachedActiveLevels)
     private static var activeLevels: [LevelDefinition] { cachedActiveLevels }
@@ -2217,11 +2208,6 @@ struct ContentView: View {
     private var rootViewWithLifecycle: some View {
         rootViewWithPreferences
         .onAppear {
-            guard !isRunningInPreviews else {
-                refreshBoardFrames()
-                return
-            }
-
             beginRemoteRefresh()
 
             guard !didRestorePersistedProgress else {
@@ -2428,10 +2414,6 @@ struct ContentView: View {
         .animation(screenTransitionAnimation, value: showBackButton)
     }
 
-    private var isRunningInPreviews: Bool {
-        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
-    }
-
     @MainActor
     private func beginRemoteRefresh() {
         guard !hasStartedRemoteRefresh else { return }
@@ -2466,10 +2448,7 @@ struct ContentView: View {
             : nil
 
         Self.levelContent = updatedSnapshot
-        Self.cachedActiveLevels = updatedSnapshot.activeLevels(
-            isRunningInPreviews: Self.isRunningInPreviews,
-            previewRecentLevelCount: Self.previewRecentLevelCount
-        )
+        Self.cachedActiveLevels = updatedSnapshot.activeLevels()
         Self.cachedDailyScheduleDateByLevelID = updatedSnapshot.schedule.dateByLevelID
         Self.cachedBoardGrid = BoardGridMetrics(levels: Self.cachedActiveLevels)
         levelContentRevision &+= 1
@@ -2502,10 +2481,6 @@ struct ContentView: View {
     }
 
     private var releasedLevelIndices: [Int] {
-        if isRunningInPreviews {
-            return Array(Self.activeLevels.indices)
-        }
-
         return Self.activeLevels.indices.filter { levelIndex in
             guard let releaseDate = levelDate(for: levelIndex) else {
                 return false
@@ -2618,7 +2593,6 @@ struct ContentView: View {
         let columns = Array(repeating: GridItem(.flexible(), spacing: tileSpacing), count: 3)
         let featuredLevel = featuredLevelIndex
         let remainingLevelIndices = remainingHomepageLevelIndices
-        let firstRegularLevelIndex = remainingLevelIndices.first
         let levelProgressByID = progressSnapshot.levelsByID
         let topContentInset = BoardUI.topPadding + titleStackHeight + 20
 
@@ -2634,20 +2608,12 @@ struct ContentView: View {
                             width: featuredTileSize,
                             height: featuredTileSize,
                             cornerRadius: cornerRadius,
-                            fillColor: dummyHomepageTileFillColor(
-                                for: featuredLevel,
-                                featuredLevelIndex: featuredLevel,
-                                firstRegularLevelIndex: firstRegularLevelIndex
-                            ) ?? levelTileFillColor(
+                            fillColor: levelTileFillColor(
                                 for: Self.activeLevels[featuredLevel].id,
                                 progressByLevelID: levelProgressByID
                             ),
                             isFeatured: true,
-                            badges: dummyHomepageBadges(
-                                for: featuredLevel,
-                                featuredLevelIndex: featuredLevel,
-                                firstRegularLevelIndex: firstRegularLevelIndex
-                            ) ?? levelBadges(
+                            badges: levelBadges(
                                 for: Self.activeLevels[featuredLevel].id,
                                 progressByLevelID: levelProgressByID
                             )
@@ -2661,20 +2627,12 @@ struct ContentView: View {
                                 width: gridTileSize,
                                 height: gridTileSize,
                                 cornerRadius: cornerRadius,
-                                fillColor: dummyHomepageTileFillColor(
-                                    for: levelIndex,
-                                    featuredLevelIndex: featuredLevel,
-                                    firstRegularLevelIndex: firstRegularLevelIndex
-                                ) ?? levelTileFillColor(
+                                fillColor: levelTileFillColor(
                                     for: Self.activeLevels[levelIndex].id,
                                     progressByLevelID: levelProgressByID
                                 ),
                                 isFeatured: false,
-                                badges: dummyHomepageBadges(
-                                    for: levelIndex,
-                                    featuredLevelIndex: featuredLevel,
-                                    firstRegularLevelIndex: firstRegularLevelIndex
-                                ) ?? levelBadges(
+                                badges: levelBadges(
                                     for: Self.activeLevels[levelIndex].id,
                                     progressByLevelID: levelProgressByID
                                 )
@@ -2911,26 +2869,6 @@ struct ContentView: View {
         guard let persistedLevel = progressByLevelID[levelID] else { return [] }
         let earned = Set(persistedLevel.earnedGoldBadges.compactMap(LevelAchievementBadge.init(rawValue:)))
         return LevelAchievementBadge.allCases.filter { earned.contains($0) }
-    }
-
-    private func dummyHomepageBadges(
-        for levelIndex: Int,
-        featuredLevelIndex: Int?,
-        firstRegularLevelIndex: Int?
-    ) -> [LevelAchievementBadge]? {
-        guard isRunningInPreviews else { return nil }
-        let shouldShowDummy = levelIndex == featuredLevelIndex || levelIndex == firstRegularLevelIndex
-        return shouldShowDummy ? LevelAchievementBadge.allCases : nil
-    }
-
-    private func dummyHomepageTileFillColor(
-        for levelIndex: Int,
-        featuredLevelIndex: Int?,
-        firstRegularLevelIndex: Int?
-    ) -> Color? {
-        guard isRunningInPreviews else { return nil }
-        let shouldShowDummy = levelIndex == featuredLevelIndex || levelIndex == firstRegularLevelIndex
-        return shouldShowDummy ? AppColor.criteriaGold : nil
     }
 
     @ViewBuilder
@@ -3311,7 +3249,7 @@ struct ContentView: View {
     }
 
     private func criteriaLabelSize(for layout: BoardLayout) -> CGFloat {
-        let rowCount = 2
+        let rowCount = BoardUI.criteriaCount
         let tabsWidth = max(40, layout.sharedStackWidth - (BoardUI.criteriaHorizontalInset * 2))
         let interTabCount = max(rowCount - 1, 0)
         let columnWidth = max(

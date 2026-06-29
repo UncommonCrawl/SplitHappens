@@ -73,18 +73,12 @@ struct LevelContentSnapshot {
         LevelContentVersion(levels: levelsVersion, schedule: scheduleVersion)
     }
 
-    func activeLevels(isRunningInPreviews: Bool, previewRecentLevelCount: Int) -> [LevelDefinition] {
+    func activeLevels() -> [LevelDefinition] {
         let active = levels.filter(\.isActive)
         let baseLevels = active.isEmpty ? levels : active
         let ordered = schedule.orderedLevels(from: baseLevels)
 
-        guard isRunningInPreviews else {
-            return ordered
-        }
-
-        let datedLevels = ordered.filter { schedule.dateByLevelID[$0.id] != nil }
-        let previewLevels = datedLevels.isEmpty ? ordered : datedLevels
-        return Array(previewLevels.suffix(previewRecentLevelCount))
+        return ordered
     }
 
     static func bundledSnapshot(calendar: Calendar) -> LevelContentSnapshot {
