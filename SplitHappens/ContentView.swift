@@ -3826,7 +3826,8 @@ struct ContentView: View {
     private func targetSlotView(slotID: UUID, rowIndex: Int, tileSize: CGFloat) -> some View {
         let cornerRadius = tileSize * BoardUI.targetTileCornerRatio
         let isGoldSlot = game.isGoldSlot(slotID)
-        let isCorrectGoldPlacement = game.isCorrectlyPlacedGoldSlot(slotID)
+        let shouldRevealGoldSlot = hasAchievedSplit && isGoldSlot
+        let isCorrectGoldPlacement = shouldRevealGoldSlot && game.isCorrectlyPlacedGoldSlot(slotID)
         let isDropHoverSlot = previewTargetSlotID == slotID
         let placedLetter = game.letterInSlot(slotID)
         let isDraggingOriginSlot = placedLetter?.id == draggingLetterID
@@ -3853,9 +3854,9 @@ struct ContentView: View {
                 return correctGoldFillStyle
             }
             if isDraggingOriginSlot {
-                return AnyShapeStyle(isGoldSlot ? AppColor.criteriaGold : AppColor.tilePlaceholder)
+                return AnyShapeStyle(shouldRevealGoldSlot ? AppColor.criteriaGold : AppColor.tilePlaceholder)
             }
-            if isGoldSlot {
+            if shouldRevealGoldSlot {
                 return AnyShapeStyle(AppColor.criteriaGold)
             }
             if rowWord != nil {
@@ -3868,8 +3869,8 @@ struct ContentView: View {
         }()
         let slotShadowYOffset: CGFloat = {
             guard areLevelVisualsRevealed else { return 1 }
-            if isGoldSlot && (placedLetter == nil || isDraggingOriginSlot) { return 1 }
-            if isGoldSlot || rowWord != nil || placedLetter != nil {
+            if shouldRevealGoldSlot && (placedLetter == nil || isDraggingOriginSlot) { return 1 }
+            if shouldRevealGoldSlot || rowWord != nil || placedLetter != nil {
                 return -1
             }
             return 1
@@ -3896,7 +3897,7 @@ struct ContentView: View {
                     size: tileSize,
                     cornerRadius: cornerRadius,
                     fillStyle: slotFillStyle,
-                    isGold: isGoldSlot,
+                    isGold: shouldRevealGoldSlot,
                     innerShadowColor: isCorrectGoldPlacement ? .white.opacity(0.5) : AppColor.tileInnerShadow,
                     innerShadowRadius: isCorrectGoldPlacement ? 3 : 1,
                     textOpacity: areLevelVisualsRevealed ? 1 : 0
