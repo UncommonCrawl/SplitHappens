@@ -2763,7 +2763,7 @@ struct ContentView: View {
                 Color.clear
                     .frame(width: layout.sharedStackWidth)
                     .frame(height: gameTitleStackHeight + 20)
-                criteriaSection()
+                criteriaSection(sourceTileSize: layout.sourceTileSize)
                 .frame(width: layout.sharedStackWidth)
                 .frame(height: layout.criteriaSectionHeight)
                 Spacer()
@@ -3230,7 +3230,7 @@ struct ContentView: View {
         }
     }
 
-    private func criteriaSection() -> some View {
+    private func criteriaSection(sourceTileSize: CGFloat) -> some View {
         let rowWords = cachedCriteriaRowWords.count == game.slotIDs.count
             ? cachedCriteriaRowWords
             : game.slotIDs.indices.map(game.criteriaWordForRow)
@@ -3251,6 +3251,7 @@ struct ContentView: View {
             let tabSpacing = BoardUI.criteriaTabSpacing
             let interTabCount = max(rowCount - 1, 0)
             let tabsWidth = max(40, geometry.size.width - (BoardUI.criteriaHorizontalInset * 2))
+            let rowValidityIndicators = game.slotIDs.indices.map { validRows.contains($0) }
             let columnWidth = max(
                 40,
                 (tabsWidth - (tabSpacing * CGFloat(interTabCount))) / CGFloat(rowCount)
@@ -3262,17 +3263,30 @@ struct ContentView: View {
 
             ZStack(alignment: .topLeading) {
                 HStack(spacing: tabSpacing) {
-                    ForEach(visibleRows, id: \.kind) { row in
-                        let isAchieved = row.kind.isAchieved(
-                            hasAchievedSplit: hasAchievedSplit,
-                            hasAchievedPerfectSplit: hasAchievedPerfectSplit
-                        )
-                        criteriaRow(
-                            label: row.label,
-                            goldLetterMatches: row.goldLetterMatches,
-                            sealColor: row.kind.sealColor,
-                            showSealBorder: row.isSatisfied,
-                            sealBorderOpacity: row.arePriorCriteriaMet ? 1 : 0.5,
+	                    ForEach(visibleRows, id: \.kind) { row in
+	                        let isAchieved = row.kind.isAchieved(
+	                            hasAchievedSplit: hasAchievedSplit,
+	                            hasAchievedPerfectSplit: hasAchievedPerfectSplit
+	                        )
+	                        let indicatorState: [Bool]? = {
+	                            switch row.kind {
+	                            case .split:
+	                                return rowValidityIndicators
+	                            case .perfectSplit:
+	                                return row.goldLetterMatches
+	                            }
+	                        }()
+	                        let indicatorDiameter = row.kind == .perfectSplit ? sourceTileSize * 0.8 : sourceTileSize
+	                        let indicatorFillColor = row.kind == .perfectSplit ? AppColor.criteriaGold : AppColor.letterCorrect
+	                        criteriaRow(
+	                            label: row.label,
+	                            goldLetterMatches: row.goldLetterMatches,
+	                            indicatorState: indicatorState,
+	                            indicatorDiameter: indicatorDiameter,
+	                            indicatorFillColor: indicatorFillColor,
+	                            sealColor: row.kind.sealColor,
+	                            showSealBorder: row.isSatisfied,
+	                            sealBorderOpacity: row.arePriorCriteriaMet ? 1 : 0.5,
                             showCheckmark: isAchieved,
                             enableAchievementAnimation: true,
                             shadowYOffset: row.isSatisfied ? -1 : 1,
@@ -3378,12 +3392,15 @@ struct ContentView: View {
         return rows
     }
 
-    private func criteriaRow(
-        label: String?,
-        goldLetterMatches: [Bool]?,
-        sealColor: Color,
-        showSealBorder: Bool,
-        sealBorderOpacity: Double,
+	    private func criteriaRow(
+	        label: String?,
+	        goldLetterMatches: [Bool]?,
+	        indicatorState: [Bool]?,
+	        indicatorDiameter: CGFloat,
+	        indicatorFillColor: Color,
+	        sealColor: Color,
+	        showSealBorder: Bool,
+	        sealBorderOpacity: Double,
         showCheckmark: Bool,
         enableAchievementAnimation: Bool,
         shadowYOffset: CGFloat,
@@ -3391,63 +3408,27 @@ struct ContentView: View {
         height: CGFloat,
         preferredFontSize: CGFloat,
         sealSize: CGFloat
-    ) -> some View {
-        let showAchievedSeal = showCheckmark
-        let shouldAnimateAchievement = enableAchievementAnimation && showAchievedSeal
+	    ) -> some View {
+	        let showAchievedSeal = showCheckmark
+	        let shouldAnimateAchievement = enableAchievementAnimation && showAchievedSeal
 
-        return VStack(spacing: max(4, height * 0.05)) {
-            ZStack {
-                Image(systemName: "seal")
-                    .symbolVariant(.fill)
-                    .font(.system(size: sealSize, weight: .semibold))
-                    .foregroundStyle(
-                        sealColor.shadow(
-                            .inner(
-                                color: AppColor.tileInnerShadow.opacity(0.5),
-                                radius: 1,
-                                x: 0,
-                                y: shadowYOffset
-                            )
-                        )
-                    )
-                    .opacity(showAchievedSeal ? 0 : 1)
-                    .scaleEffect(showAchievedSeal ? 0.9 : 1)
-                    .animation(
-                        .spring(response: 0.26, dampingFraction: 0.74),
-                        value: shouldAnimateAchievement
-                    )
-
-                Image(systemName: "checkmark.seal.fill")
-                    .font(.system(size: sealSize, weight: .semibold))
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(
-                        AppColor.textDefault,
-                        sealColor.shadow(
-                            .inner(
-                                color: AppColor.tileInnerShadow.opacity(0.5),
-                                radius: 1,
-                                x: 0,
-                                y: shadowYOffset
-                            )
-                        )
-                    )
-                    .opacity(showAchievedSeal ? 1 : 0)
-                    .scaleEffect(showAchievedSeal ? 1 : 0.88)
-                    .animation(
-                        .spring(response: 0.26, dampingFraction: 0.74),
-                        value: shouldAnimateAchievement
-                    )
-            }
-                .overlay {
-                    if showSealBorder {
-                        Image(systemName: "seal")
-                            .font(.system(size: sealSize, weight: .semibold))
-                            .foregroundStyle(showAchievedSeal ? AppColor.textDefault : AppColor.selection)
-                            .opacity(showAchievedSeal ? 1 : 1)
-                            .scaleEffect(showAchievedSeal ? 1.02 : 1)
-                            .animation(.easeOut(duration: 0.2), value: shouldAnimateAchievement)
-                    }
-                }
+	        return VStack(spacing: max(4, height * 0.05)) {
+	            if let indicatorState {
+	                criteriaProgressIndicators(
+	                    indicatorState,
+	                    diameter: indicatorDiameter,
+	                    filledColor: indicatorFillColor
+	                )
+	            } else {
+	                criteriaSealIndicator(
+	                    sealColor: sealColor,
+	                    showSealBorder: showSealBorder,
+	                    showAchievedSeal: showAchievedSeal,
+	                    shouldAnimateAchievement: shouldAnimateAchievement,
+	                    shadowYOffset: shadowYOffset,
+	                    sealSize: sealSize
+	                )
+	            }
 
             if let label {
                 let baseText = criteriaRowLabelText(
@@ -3476,6 +3457,83 @@ struct ContentView: View {
         .padding(.horizontal, 6)
         .frame(width: width, height: height)
         .background(Color.clear)
+    }
+
+	    private func criteriaProgressIndicators(
+	        _ indicators: [Bool],
+	        diameter: CGFloat,
+	        filledColor: Color
+	    ) -> some View {
+	        HStack(spacing: BoardUI.sourceTileSpacing) {
+	            ForEach(indicators.indices, id: \.self) { index in
+	                Circle()
+	                    .fill(indicators[index] ? filledColor : AppColor.tilePlaceholder)
+	                    .frame(width: diameter, height: diameter)
+	            }
+	        }
+        .frame(height: diameter, alignment: .center)
+    }
+
+    private func criteriaSealIndicator(
+        sealColor: Color,
+        showSealBorder: Bool,
+        showAchievedSeal: Bool,
+        shouldAnimateAchievement: Bool,
+        shadowYOffset: CGFloat,
+        sealSize: CGFloat
+    ) -> some View {
+        ZStack {
+            Image(systemName: "seal")
+                .symbolVariant(.fill)
+                .font(.system(size: sealSize, weight: .semibold))
+                .foregroundStyle(
+                    sealColor.shadow(
+                        .inner(
+                            color: AppColor.tileInnerShadow.opacity(0.5),
+                            radius: 1,
+                            x: 0,
+                            y: shadowYOffset
+                        )
+                    )
+                )
+                .opacity(showAchievedSeal ? 0 : 1)
+                .scaleEffect(showAchievedSeal ? 0.9 : 1)
+                .animation(
+                    .spring(response: 0.26, dampingFraction: 0.74),
+                    value: shouldAnimateAchievement
+                )
+
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: sealSize, weight: .semibold))
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(
+                    AppColor.textDefault,
+                    sealColor.shadow(
+                        .inner(
+                            color: AppColor.tileInnerShadow.opacity(0.5),
+                            radius: 1,
+                            x: 0,
+                            y: shadowYOffset
+                        )
+                    )
+                )
+                .opacity(showAchievedSeal ? 1 : 0)
+                .scaleEffect(showAchievedSeal ? 1 : 0.88)
+                .animation(
+                    .spring(response: 0.26, dampingFraction: 0.74),
+                    value: shouldAnimateAchievement
+                )
+        }
+        .overlay {
+            if showSealBorder {
+                Image(systemName: "seal")
+                    .font(.system(size: sealSize, weight: .semibold))
+                    .foregroundStyle(showAchievedSeal ? AppColor.textDefault : AppColor.selection)
+                    .opacity(showAchievedSeal ? 1 : 1)
+                    .scaleEffect(showAchievedSeal ? 1.02 : 1)
+                    .animation(.easeOut(duration: 0.2), value: shouldAnimateAchievement)
+            }
+        }
     }
 
     private func goldCriterionWord(from label: String) -> String? {
