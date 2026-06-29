@@ -3189,9 +3189,12 @@ struct ContentView: View {
             rowWords: rowWords,
             goldLetterMatches: goldLetterMatches
         )
+        let visibleRows = Array(rows.enumerated()).filter { index, _ in
+            index == 0 ? !hasAchievedSplit : hasAchievedSplit
+        }
 
         return GeometryReader { geometry in
-            let rowCount = max(rows.count, 1)
+            let rowCount = max(visibleRows.count, 1)
             let tabSpacing = BoardUI.criteriaTabSpacing
             let interTabCount = max(rowCount - 1, 0)
             let tabsWidth = max(40, geometry.size.width - (BoardUI.criteriaHorizontalInset * 2))
@@ -3206,7 +3209,7 @@ struct ContentView: View {
 
             ZStack(alignment: .topLeading) {
                 HStack(spacing: tabSpacing) {
-                    ForEach(Array(rows.enumerated()), id: \.offset) { index, row in
+                    ForEach(visibleRows, id: \.offset) { index, row in
                         let isAchieved = index == 0 ? hasAchievedSplit : hasAchievedPerfectSplit
                         criteriaRow(
                             label: row.label,
