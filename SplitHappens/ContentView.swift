@@ -1953,6 +1953,47 @@ struct ContentView: View {
         let message: String
     }
 
+    private enum CriteriaMilestone: Hashable {
+        case split
+        case perfectSplit
+
+        var sealColor: Color {
+            switch self {
+            case .split:
+                return AppColor.split
+            case .perfectSplit:
+                return AppColor.perfectSplit
+            }
+        }
+
+        func isVisible(hasAchievedSplit: Bool) -> Bool {
+            switch self {
+            case .split:
+                return !hasAchievedSplit
+            case .perfectSplit:
+                return hasAchievedSplit
+            }
+        }
+
+        func isAchieved(hasAchievedSplit: Bool, hasAchievedPerfectSplit: Bool) -> Bool {
+            switch self {
+            case .split:
+                return hasAchievedSplit
+            case .perfectSplit:
+                return hasAchievedPerfectSplit
+            }
+        }
+    }
+
+    private struct CriteriaRowState {
+        let kind: CriteriaMilestone
+        let label: String?
+        let goldLetterMatches: [Bool]?
+        let isSatisfied: Bool
+        let isMet: Bool
+        let arePriorCriteriaMet: Bool
+    }
+
     private static let levelDateCalendar = Calendar(identifier: .gregorian)
     private static var levelContent = LevelContentStore.loadStartupSnapshot(calendar: levelDateCalendar)
     private static var cachedActiveLevels: [LevelDefinition] = levelContent.activeLevels()
@@ -2075,11 +2116,6 @@ struct ContentView: View {
         ProcessInfo.processInfo.environment[Self.dropDiagnosticsEnvKey] == "1"
     }
 
-    private let criteriaSealColors = [
-        AppColor.split,
-        AppColor.perfectSplit
-    ]
-
     init(previewShowVictoryPopup: Bool = false, previewPopup: PreviewPopup? = nil) {
         let resolvedPreviewPopup: PreviewPopup?
         if previewShowVictoryPopup {
@@ -2109,12 +2145,15 @@ struct ContentView: View {
             case .splitMet:
                 let previewLevelIndex = Self.activeLevels.firstIndex { $0.id == Self.gameplayPreviewLevelID } ?? 0
                 let previewLevel = Self.activeLevels[previewLevelIndex]
-                _currentLevelIndex = State(initialValue: previewLevelIndex)
-                _game = State(initialValue: GameState(
+                let previewGame = GameState(
                     sourceWords: previewLevel.startingWords,
                     targetRowSizes: previewLevel.boardShape.targetRowLengths,
                     goldTileExpectations: previewLevel.goldTileExpectations
-                ))
+                )
+                _currentLevelIndex = State(initialValue: previewLevelIndex)
+                _game = State(initialValue: previewGame)
+                _cachedCriteriaRowWords = State(initialValue: previewGame.slotIDs.indices.map(previewGame.criteriaWordForRow))
+                _cachedGoldLetterMatches = State(initialValue: previewGame.goldLetterMatchesInOrder())
                 _hasAchievedSplit = State(initialValue: true)
                 _currentScreen = State(initialValue: .game)
                 _areLevelVisualsRevealed = State(initialValue: true)
@@ -3203,8 +3242,8 @@ struct ContentView: View {
             rowWords: rowWords,
             goldLetterMatches: goldLetterMatches
         )
-        let visibleRows = Array(rows.enumerated()).filter { index, _ in
-            index == 0 ? !hasAchievedSplit : hasAchievedSplit
+        let visibleRows = rows.filter { row in
+            row.kind.isVisible(hasAchievedSplit: hasAchievedSplit)
         }
 
         return GeometryReader { geometry in
@@ -3223,17 +3262,20 @@ struct ContentView: View {
 
             ZStack(alignment: .topLeading) {
                 HStack(spacing: tabSpacing) {
-                    ForEach(visibleRows, id: \.offset) { index, row in
-                        let isAchieved = index == 0 ? hasAchievedSplit : hasAchievedPerfectSplit
+                    ForEach(visibleRows, id: \.kind) { row in
+                        let isAchieved = row.kind.isAchieved(
+                            hasAchievedSplit: hasAchievedSplit,
+                            hasAchievedPerfectSplit: hasAchievedPerfectSplit
+                        )
                         criteriaRow(
                             label: row.label,
                             goldLetterMatches: row.goldLetterMatches,
-                            sealColor: criteriaSealColors[index],
-                            showSealBorder: row.isMet,
+                            sealColor: row.kind.sealColor,
+                            showSealBorder: row.isSatisfied,
                             sealBorderOpacity: row.arePriorCriteriaMet ? 1 : 0.5,
                             showCheckmark: isAchieved,
                             enableAchievementAnimation: true,
-                            shadowYOffset: row.isMet ? -1 : 1,
+                            shadowYOffset: row.isSatisfied ? -1 : 1,
                             width: columnWidth,
                             height: tabHeight,
                             preferredFontSize: preferredFontSize,
@@ -3283,10 +3325,28 @@ struct ContentView: View {
         totalWords: Int,
         rowWords: [String?],
         goldLetterMatches: [Bool]
-    ) -> [(label: String?, goldLetterMatches: [Bool]?, isSatisfied: Bool, isMet: Bool, arePriorCriteriaMet: Bool)] {
-        let criteria = [level.criteriaRegular, level.criteriaPerfect]
-        let evaluatedRows = criteria.compactMap { rawCriterion -> (label: String, goldLetterMatches: [Bool]?, isMet: Bool)? in
-            guard let criterion = LevelCriterion(rawValue: rawCriterion) else { return nil }
+    ) -> [CriteriaRowState] {
+        let criteria: [(kind: CriteriaMilestone, rawCriterion: String)] = [
+            (.split, level.criteriaRegular),
+            (.perfectSplit, level.criteriaPerfect)
+        ]
+
+        var rows: [CriteriaRowState] = []
+        var priorCriteriaSatisfied = true
+
+        for definition in criteria {
+            guard let criterion = LevelCriterion(rawValue: definition.rawCriterion) else {
+                rows.append(CriteriaRowState(
+                    kind: definition.kind,
+                    label: nil,
+                    goldLetterMatches: nil,
+                    isSatisfied: false,
+                    isMet: false,
+                    arePriorCriteriaMet: priorCriteriaSatisfied
+                ))
+                priorCriteriaSatisfied = false
+                continue
+            }
 
             let label = criterion.label(
                 completedWords: completedWords,
@@ -3294,43 +3354,28 @@ struct ContentView: View {
                 rules: Self.criteriaRules
             )
             let goldProgress = goldCriterionWord(from: label).map { _ in goldLetterMatches }
-            let isMet = goldProgress?.allSatisfy { $0 } ?? criterion.isSatisfied(
+            let isMet = goldProgress.map { matches in
+                !matches.isEmpty && matches.allSatisfy { $0 }
+            } ?? criterion.isSatisfied(
                 completedWords: completedWords,
                 totalWords: totalWords,
                 rowWords: rowWords
             )
+            let isSatisfied = priorCriteriaSatisfied && isMet
 
-            return (
+            rows.append(CriteriaRowState(
+                kind: definition.kind,
                 label: label,
                 goldLetterMatches: goldProgress,
-                isMet: isMet
-            )
-        }
-
-        var rows: [(label: String?, goldLetterMatches: [Bool]?, isSatisfied: Bool, isMet: Bool, arePriorCriteriaMet: Bool)] = []
-        var priorCriteriaSatisfied = true
-
-        for row in evaluatedRows {
-            let isSatisfied = priorCriteriaSatisfied && row.isMet
-            rows.append((
-                label: row.label,
-                goldLetterMatches: row.goldLetterMatches,
                 isSatisfied: isSatisfied,
-                isMet: row.isMet,
+                isMet: isMet,
                 arePriorCriteriaMet: priorCriteriaSatisfied
             ))
 
             priorCriteriaSatisfied = isSatisfied
         }
 
-        if rows.count < 2 {
-            rows.append(contentsOf: Array(
-                repeating: (label: nil, goldLetterMatches: nil, isSatisfied: false, isMet: false, arePriorCriteriaMet: false),
-                count: 2 - rows.count
-            ))
-        }
-
-        return Array(rows.prefix(2))
+        return rows
     }
 
     private func criteriaRow(
@@ -4510,8 +4555,8 @@ struct ContentView: View {
             rowWords: rowWords,
             goldLetterMatches: goldLetterMatches
         )
-        let isSplitCurrentlySatisfied = rows.indices.contains(0) && rows[0].isSatisfied
-        let isPerfectSplitCurrentlySatisfied = rows.indices.contains(1) && rows[1].isSatisfied && isSplitCurrentlySatisfied
+        let isSplitCurrentlySatisfied = rows.first { $0.kind == .split }?.isSatisfied ?? false
+        let isPerfectSplitCurrentlySatisfied = rows.first { $0.kind == .perfectSplit }?.isSatisfied ?? false
         let updatedHasAchievedSplit = hasAchievedSplit || isSplitCurrentlySatisfied
         let updatedHasAchievedPerfectSplit = hasAchievedPerfectSplit || isPerfectSplitCurrentlySatisfied
         let newlyReachedSplit = !hasAchievedSplit && updatedHasAchievedSplit
