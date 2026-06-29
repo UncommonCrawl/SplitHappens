@@ -1941,6 +1941,7 @@ struct ContentView: View {
 
     enum PreviewPopup {
         case gameplay
+        case splitMet
         case settings
         case intro
         case stats
@@ -2102,6 +2103,19 @@ struct ContentView: View {
                 _currentLevelIndex = State(initialValue: previewLevelIndex)
                 _game = State(initialValue: previewGame)
                 _validRows = State(initialValue: Set(previewGame.slotIDs.indices.filter { previewGame.isRowValid($0) }))
+                _currentScreen = State(initialValue: .game)
+                _areLevelVisualsRevealed = State(initialValue: true)
+                _activePopup = State(initialValue: nil)
+            case .splitMet:
+                let previewLevelIndex = Self.activeLevels.firstIndex { $0.id == Self.gameplayPreviewLevelID } ?? 0
+                let previewLevel = Self.activeLevels[previewLevelIndex]
+                _currentLevelIndex = State(initialValue: previewLevelIndex)
+                _game = State(initialValue: GameState(
+                    sourceWords: previewLevel.startingWords,
+                    targetRowSizes: previewLevel.boardShape.targetRowLengths,
+                    goldTileExpectations: previewLevel.goldTileExpectations
+                ))
+                _hasAchievedSplit = State(initialValue: true)
                 _currentScreen = State(initialValue: .game)
                 _areLevelVisualsRevealed = State(initialValue: true)
                 _activePopup = State(initialValue: nil)
@@ -5580,6 +5594,10 @@ private final class ShakeDetectingViewController: UIViewController {
 
 #Preview("Gameplay View") {
     ContentView(previewPopup: .gameplay)
+}
+
+#Preview("SplitMet") {
+    ContentView(previewPopup: .splitMet)
 }
 
 #Preview("Victory Popup") {
