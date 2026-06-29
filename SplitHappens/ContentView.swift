@@ -3263,30 +3263,32 @@ struct ContentView: View {
 
             ZStack(alignment: .topLeading) {
                 HStack(spacing: tabSpacing) {
-	                    ForEach(visibleRows, id: \.kind) { row in
-	                        let isAchieved = row.kind.isAchieved(
-	                            hasAchievedSplit: hasAchievedSplit,
-	                            hasAchievedPerfectSplit: hasAchievedPerfectSplit
-	                        )
-	                        let indicatorState: [Bool]? = {
-	                            switch row.kind {
-	                            case .split:
-	                                return rowValidityIndicators
-	                            case .perfectSplit:
-	                                return row.goldLetterMatches
-	                            }
+                    ForEach(visibleRows, id: \.kind) { row in
+                        let isAchieved = row.kind.isAchieved(
+                            hasAchievedSplit: hasAchievedSplit,
+                            hasAchievedPerfectSplit: hasAchievedPerfectSplit
+                        )
+                        let indicatorState: [Bool]? = {
+                            switch row.kind {
+                            case .split:
+                                return rowValidityIndicators
+                            case .perfectSplit:
+                                return row.goldLetterMatches
+                            }
 	                        }()
-	                        let indicatorDiameter = row.kind == .perfectSplit ? sourceTileSize * 0.8 : sourceTileSize
+	                        let indicatorDiameter = sourceTileSize * 0.3
+	                        let indicatorSpacing = sourceTileSize + BoardUI.sourceTileSpacing - indicatorDiameter
 	                        let indicatorFillColor = row.kind == .perfectSplit ? AppColor.criteriaGold : AppColor.letterCorrect
 	                        criteriaRow(
 	                            label: row.label,
 	                            goldLetterMatches: row.goldLetterMatches,
 	                            indicatorState: indicatorState,
 	                            indicatorDiameter: indicatorDiameter,
+	                            indicatorSpacing: indicatorSpacing,
 	                            indicatorFillColor: indicatorFillColor,
 	                            sealColor: row.kind.sealColor,
-	                            showSealBorder: row.isSatisfied,
-	                            sealBorderOpacity: row.arePriorCriteriaMet ? 1 : 0.5,
+                            showSealBorder: row.isSatisfied,
+                            sealBorderOpacity: row.arePriorCriteriaMet ? 1 : 0.5,
                             showCheckmark: isAchieved,
                             enableAchievementAnimation: true,
                             shadowYOffset: row.isSatisfied ? -1 : 1,
@@ -3392,15 +3394,16 @@ struct ContentView: View {
         return rows
     }
 
-	    private func criteriaRow(
-	        label: String?,
+    private func criteriaRow(
+        label: String?,
 	        goldLetterMatches: [Bool]?,
 	        indicatorState: [Bool]?,
 	        indicatorDiameter: CGFloat,
+	        indicatorSpacing: CGFloat,
 	        indicatorFillColor: Color,
-	        sealColor: Color,
-	        showSealBorder: Bool,
-	        sealBorderOpacity: Double,
+        sealColor: Color,
+        showSealBorder: Bool,
+        sealBorderOpacity: Double,
         showCheckmark: Bool,
         enableAchievementAnimation: Bool,
         shadowYOffset: CGFloat,
@@ -3408,27 +3411,28 @@ struct ContentView: View {
         height: CGFloat,
         preferredFontSize: CGFloat,
         sealSize: CGFloat
-	    ) -> some View {
-	        let showAchievedSeal = showCheckmark
-	        let shouldAnimateAchievement = enableAchievementAnimation && showAchievedSeal
+    ) -> some View {
+        let showAchievedSeal = showCheckmark
+        let shouldAnimateAchievement = enableAchievementAnimation && showAchievedSeal
 
-	        return VStack(spacing: max(4, height * 0.05)) {
-	            if let indicatorState {
+        return VStack(spacing: max(4, height * 0.05)) {
+            if let indicatorState {
 	                criteriaProgressIndicators(
 	                    indicatorState,
 	                    diameter: indicatorDiameter,
+	                    spacing: indicatorSpacing,
 	                    filledColor: indicatorFillColor
 	                )
-	            } else {
-	                criteriaSealIndicator(
-	                    sealColor: sealColor,
-	                    showSealBorder: showSealBorder,
-	                    showAchievedSeal: showAchievedSeal,
-	                    shouldAnimateAchievement: shouldAnimateAchievement,
-	                    shadowYOffset: shadowYOffset,
-	                    sealSize: sealSize
-	                )
-	            }
+            } else {
+                criteriaSealIndicator(
+                    sealColor: sealColor,
+                    showSealBorder: showSealBorder,
+                    showAchievedSeal: showAchievedSeal,
+                    shouldAnimateAchievement: shouldAnimateAchievement,
+                    shadowYOffset: shadowYOffset,
+                    sealSize: sealSize
+                )
+            }
 
             if let label {
                 let baseText = criteriaRowLabelText(
@@ -3462,15 +3466,29 @@ struct ContentView: View {
 	    private func criteriaProgressIndicators(
 	        _ indicators: [Bool],
 	        diameter: CGFloat,
+	        spacing: CGFloat,
 	        filledColor: Color
 	    ) -> some View {
-	        HStack(spacing: BoardUI.sourceTileSpacing) {
+        let innerShadowRadius = max(0.5, diameter * 0.06)
+        let innerShadowYOffset = max(0.25, diameter * 0.025)
+
+	        return HStack(spacing: spacing) {
 	            ForEach(indicators.indices, id: \.self) { index in
-	                Circle()
-	                    .fill(indicators[index] ? filledColor : AppColor.tilePlaceholder)
-	                    .frame(width: diameter, height: diameter)
-	            }
-	        }
+	                let fillColor = indicators[index] ? filledColor : AppColor.buttonActive
+                Circle()
+                    .fill(
+                        fillColor.shadow(
+                            .inner(
+                                color: AppColor.tileInnerShadow,
+                                radius: innerShadowRadius,
+                                x: 0,
+                                y: innerShadowYOffset
+                            )
+                        )
+                    )
+                    .frame(width: diameter, height: diameter)
+            }
+        }
         .frame(height: diameter, alignment: .center)
     }
 
