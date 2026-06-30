@@ -2019,6 +2019,12 @@ struct ContentView: View {
         let message: String
     }
 
+    private enum LevelTileStatus {
+        case unfinished
+        case split
+        case perfectSplit
+    }
+
     private enum CriteriaMilestone: Hashable {
         case split
         case perfectSplit
@@ -2708,7 +2714,6 @@ struct ContentView: View {
         let tileSpacing = max(BoardUI.targetTileHorizontalSpacing * 2, 16)
         let gridTileSize = max(56, floor((tileStackWidth - (tileSpacing * 2)) / 3))
         let featuredTileSize = tileStackWidth
-        let cornerRadius = gridTileSize * BoardUI.targetTileCornerRatio
         let columns = Array(repeating: GridItem(.flexible(), spacing: tileSpacing), count: 3)
         let featuredLevel = featuredLevelIndex
         let remainingLevelIndices = remainingHomepageLevelIndices
@@ -2726,12 +2731,7 @@ struct ContentView: View {
                             index: featuredLevel,
                             width: featuredTileSize,
                             height: featuredTileSize,
-                            cornerRadius: cornerRadius,
-                            fillColor: levelTileFillColor(
-                                for: Self.activeLevels[featuredLevel].id,
-                                progressByLevelID: levelProgressByID
-                            ),
-                            sealColor: levelTileSealColor(
+                            status: levelTileStatus(
                                 for: Self.activeLevels[featuredLevel].id,
                                 progressByLevelID: levelProgressByID
                             ),
@@ -2749,12 +2749,7 @@ struct ContentView: View {
                                 index: levelIndex,
                                 width: gridTileSize,
                                 height: gridTileSize,
-                                cornerRadius: cornerRadius,
-                                fillColor: levelTileFillColor(
-                                    for: Self.activeLevels[levelIndex].id,
-                                    progressByLevelID: levelProgressByID
-                                ),
-                                sealColor: levelTileSealColor(
+                                status: levelTileStatus(
                                     for: Self.activeLevels[levelIndex].id,
                                     progressByLevelID: levelProgressByID
                                 ),
@@ -2920,9 +2915,7 @@ struct ContentView: View {
         index: Int,
         width: CGFloat,
         height: CGFloat,
-        cornerRadius: CGFloat,
-        fillColor: Color,
-        sealColor: Color,
+        status: LevelTileStatus,
         isFeatured: Bool,
         badges: [LevelAchievementBadge]
     ) -> some View {
@@ -2935,12 +2928,7 @@ struct ContentView: View {
             enterLevel(at: index)
         } label: {
             ZStack {
-                Image(systemName: "seal")
-                    .resizable()
-                    .scaledToFit()
-                    .symbolVariant(.fill)
-                    .frame(width: width * 0.9, height: height * 0.9)
-                    .foregroundStyle(sealColor)
+                levelTileStatusSeal(status, size: min(width, height) * 0.9)
 
                 levelTileLabel(
                     for: index,
@@ -2951,9 +2939,6 @@ struct ContentView: View {
                     .foregroundStyle(AppColor.textDefault)
             }
             .frame(width: width, height: height)
-            .background(
-                tileSurface(cornerRadius: cornerRadius, fill: fillColor)
-            )
             .overlay {
                 if !badges.isEmpty {
                     HStack(spacing: badgeGap) {
@@ -2961,7 +2946,7 @@ struct ContentView: View {
                             Image(systemName: badge.systemImage)
                                 .font(.system(size: badgeButtonSize * 0.85, weight: .semibold))
                                 .symbolRenderingMode(.palette)
-                                .foregroundStyle(sealColor, AppColor.tileGridBadgeAccent)
+                                .foregroundStyle(AppColor.criteriaGold, AppColor.buttonActive)
                                 .frame(width: badgeButtonSize, height: badgeButtonSize)
                         }
                     }
@@ -2972,38 +2957,52 @@ struct ContentView: View {
         .buttonStyle(.plain)
     }
 
-    private func levelTileFillColor(
+    private func levelTileStatus(
         for levelID: String,
         progressByLevelID: [String: PersistedLevelProgress]
-    ) -> Color {
+    ) -> LevelTileStatus {
         guard let persistedLevel = progressByLevelID[levelID] else {
-            return AppColor.tileFill
+            return .unfinished
         }
 
         if persistedLevel.hasAchievedPerfectSplit {
-            return AppColor.perfectSplitTileFill
+            return .perfectSplit
         }
         if persistedLevel.hasAchievedSplit {
-            return AppColor.splitTileFill
+            return .split
         }
-        return AppColor.tileFill
+        return .unfinished
     }
 
-    private func levelTileSealColor(
-        for levelID: String,
-        progressByLevelID: [String: PersistedLevelProgress]
-    ) -> Color {
-        guard let persistedLevel = progressByLevelID[levelID] else {
-            return AppColor.tileSeal
-        }
+    private func levelTileStatusSeal(_ status: LevelTileStatus, size: CGFloat) -> some View {
+        let outlineWidth: CGFloat = 5
+        let outerOutlineOffset: CGFloat = 5
+        let yellow = AppColor.criteriaGold
+        let cutout = AppColor.boardBackground
 
-        if persistedLevel.hasAchievedPerfectSplit {
-            return AppColor.perfectSplitTileSeal
+        return ZStack {
+            if status == .perfectSplit {
+                levelTileSealImage(size: size + ((outerOutlineOffset + outlineWidth) * 2), color: yellow)
+                levelTileSealImage(size: size + (outerOutlineOffset * 2), color: cutout)
+            }
+
+            if status == .unfinished {
+                levelTileSealImage(size: size, color: yellow)
+                levelTileSealImage(size: max(size - (outlineWidth * 2), 0), color: cutout)
+            } else {
+                levelTileSealImage(size: size, color: yellow)
+            }
         }
-        if persistedLevel.hasAchievedSplit {
-            return AppColor.splitTileSeal
-        }
-        return AppColor.tileSeal
+        .frame(width: size, height: size)
+    }
+
+    private func levelTileSealImage(size: CGFloat, color: Color) -> some View {
+        Image(systemName: "seal")
+            .resizable()
+            .scaledToFit()
+            .symbolVariant(.fill)
+            .foregroundStyle(color)
+            .frame(width: size, height: size)
     }
 
     private func levelBadges(
