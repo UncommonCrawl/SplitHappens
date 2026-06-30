@@ -1138,9 +1138,9 @@ private enum AppColor {
     static let tilePlaceholder = Color(red: 222 / 255, green: 222 / 255, blue: 222 / 255)
     static let tileCorrect = Color(red: 222 / 255, green: 241 / 255, blue: 211 / 255)
     static let tileIncorrect = Color(red: 251 / 255, green: 226 / 255, blue: 224 / 255)
-    static let letterCorrect = Color(red: 0 / 255, green: 176 / 255, blue: 80 / 255)
+    static let letterCorrect = Color(red: 44 / 255, green: 163 / 255, blue: 56 / 255)
     
-    static let split = Color(red: 175 / 255, green: 145 / 255, blue: 110 / 255)
+    static let split = Color(red: 116 / 255, green: 214 / 255, blue: 126 / 255)
     static let perfectSplit = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
     static let criteriaGold = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
     static let goldDark = Color(red: 247 / 255, green: 185 / 255, blue: 0 / 255)
