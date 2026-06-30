@@ -1168,8 +1168,8 @@ private enum AppColor {
         static let board = RGB(255, 255, 255)
         static let standardTile = RGB(248, 238, 210)
         static let placeholderTile = RGB(222, 222, 222)
-        static let splitGreen = RGB(157, 221, 136)
-        static let perfectGridGold = RGB(255, 195, 77)
+        static let splitGreen = RGB(255, 216, 107)
+        static let perfectGridGold = RGB(255, 216, 107)
         static let achievementGold = RGB(255, 216, 107)
         static let goldAccent = RGB(247, 185, 0)
         static let letterGreen = RGB(73, 159, 45)
@@ -1195,7 +1195,7 @@ private enum AppColor {
 
     // Letter Tile States
     static let tileCorrect = Swatch.solvedTileGreen.color
-    static let tileIncorrect = Swatch.splitGreen.color
+    static let tileIncorrect = Swatch.solvedTileGreen.color
     static let letterCorrect = Swatch.letterGreen.color
 
     // Achievements
