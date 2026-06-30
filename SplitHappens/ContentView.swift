@@ -1137,79 +1137,86 @@ private enum AppColor {
         let red: Double
         let green: Double
         let blue: Double
+
+        init(_ red: Double, _ green: Double, _ blue: Double) {
+            self.red = red / 255
+            self.green = green / 255
+            self.blue = blue / 255
+        }
+
+        var color: Color {
+            Color(red: red, green: green, blue: blue)
+        }
+
+        func tinted(with tint: RGB, amount: Double) -> RGB {
+            let baseAmount = 1 - amount
+            return RGB(
+                rawRed: red * baseAmount + tint.red * amount,
+                rawGreen: green * baseAmount + tint.green * amount,
+                rawBlue: blue * baseAmount + tint.blue * amount
+            )
+        }
+
+        private init(rawRed: Double, rawGreen: Double, rawBlue: Double) {
+            red = rawRed
+            green = rawGreen
+            blue = rawBlue
+        }
     }
 
-    // Base Color Components
-    private static let whiteRGB = RGB(red: 1, green: 1, blue: 1)
-    private static let tileCreamRGB = RGB(red: 248 / 255, green: 238 / 255, blue: 210 / 255)
-    private static let splitGreenRGB = RGB(red: 157 / 255, green: 221 / 255, blue: 136 / 255)
-    private static let splitGridTileRGB = splitGreenRGB
-    private static let perfectSplitGridTileRGB = RGB(red: 255 / 255, green: 195 / 255, blue: 77 / 255)
-    private static let levelTileSealRGB = whiteRGB
-    private static let levelTileSealWhiteMix = 0.6
-    private static let inactiveGrayRGB = RGB(red: 96 / 255, green: 96 / 255, blue: 96 / 255)
+    private enum Swatch {
+        static let board = RGB(255, 255, 255)
+        static let standardTile = RGB(248, 238, 210)
+        static let placeholderTile = RGB(222, 222, 222)
+        static let splitGreen = RGB(157, 221, 136)
+        static let perfectGridGold = RGB(255, 195, 77)
+        static let achievementGold = RGB(255, 216, 107)
+        static let goldAccent = RGB(247, 185, 0)
+        static let letterGreen = RGB(73, 159, 45)
+        static let controlGray = RGB(96, 96, 96)
+        static let shadowBrown = RGB(68, 51, 30)
+        static let solvedTileGreen = RGB(222, 241, 211)
+    }
 
-    // Base Color Values
-    private static let white = color(whiteRGB)
-    private static let black = Color.black
-    private static let tileCream = color(tileCreamRGB)
-    private static let placeholderGray = Color(red: 222 / 255, green: 222 / 255, blue: 222 / 255)
-    private static let inactiveGray = color(inactiveGrayRGB)
-    private static let splitGreen = color(splitGreenRGB)
-    private static let letterGreen = Color(red: 73 / 255, green: 159 / 255, blue: 45 / 255)
-    private static let splitGold = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
-    private static let splitGoldDark = Color(red: 247 / 255, green: 185 / 255, blue: 0 / 255)
-    private static let shadowBrown = Color(red: 68 / 255, green: 51 / 255, blue: 30 / 255)
+    private static let levelTileSealTintAmount = 0.6
 
     // Surfaces
-    static let boardBackground = white
-    static let tileFill = tileCream
-    static let tilePlaceholder = placeholderGray
+    static let boardBackground = Swatch.board.color
+    static let tileFill = Swatch.standardTile.color
+    static let tilePlaceholder = Swatch.placeholderTile.color
 
     // Level Grid
-    static let splitTileFill = color(splitGridTileRGB)
-    static let perfectSplitTileFill = color(perfectSplitGridTileRGB)
-    static let tileSeal = levelTileSeal(over: tileCreamRGB)
-    static let splitTileSeal = levelTileSeal(over: splitGridTileRGB)
-    static let perfectSplitTileSeal = levelTileSeal(over: perfectSplitGridTileRGB)
+    static let splitTileFill = Swatch.splitGreen.color
+    static let perfectSplitTileFill = Swatch.perfectGridGold.color
+    static let tileSeal = levelTileSeal(over: Swatch.standardTile)
+    static let splitTileSeal = levelTileSeal(over: Swatch.splitGreen)
+    static let perfectSplitTileSeal = levelTileSeal(over: Swatch.perfectGridGold)
     static let tileGridBadgeAccent = buttonActive
 
     // Letter Tile States
-    static let tileCorrect = Color(red: 222 / 255, green: 241 / 255, blue: 211 / 255)
-    static let tileIncorrect = splitGreen
-    static let letterCorrect = letterGreen
+    static let tileCorrect = Swatch.solvedTileGreen.color
+    static let tileIncorrect = Swatch.splitGreen.color
+    static let letterCorrect = Swatch.letterGreen.color
 
     // Achievements
-    static let split = splitGreen
-    static let perfectSplit = splitGold
-    static let criteriaGold = splitGold
-    static let goldDark = splitGoldDark
+    static let split = Swatch.splitGreen.color
+    static let perfectSplit = Swatch.achievementGold.color
+    static let criteriaGold = Swatch.achievementGold.color
+    static let goldDark = Swatch.goldAccent.color
     static let darkGold = goldDark
-    static let noBadge = placeholderGray
+    static let noBadge = Swatch.placeholderTile.color
 
     // Controls And Text
-    static let buttonActive = inactiveGray
-    static let textDefault = black
-    static let selection = black.opacity(0.3)
-    static let opaqueText = black.opacity(0.3)
+    static let buttonActive = Swatch.controlGray.color
+    static let textDefault = Color.black
+    static let selection = Color.black.opacity(0.3)
+    static let opaqueText = Color.black.opacity(0.3)
 
     // Effects
-    static let tileInnerShadow = shadowBrown.opacity(0.1)
-
-    private static func color(_ rgb: RGB) -> Color {
-        Color(red: rgb.red, green: rgb.green, blue: rgb.blue)
-    }
+    static let tileInnerShadow = Swatch.shadowBrown.color.opacity(0.1)
 
     private static func levelTileSeal(over base: RGB) -> Color {
-        let seal = levelTileSealRGB
-        let mix = levelTileSealWhiteMix
-        let baseMix = 1 - mix
-
-        return Color(
-            red: base.red * baseMix + seal.red * mix,
-            green: base.green * baseMix + seal.green * mix,
-            blue: base.blue * baseMix + seal.blue * mix
-        )
+        base.tinted(with: Swatch.board, amount: levelTileSealTintAmount).color
     }
 }
 
