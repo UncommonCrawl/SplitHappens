@@ -1133,25 +1133,56 @@ private struct BoardGridMetrics: Hashable {
 }
 
 private enum AppColor {
-    static let boardBackground = Color(red: 255 / 255, green: 255 / 255, blue: 255 / 255)
-    static let tileFill = Color(red: 248 / 255, green: 238 / 255, blue: 210 / 255)
-    static let tilePlaceholder = Color(red: 222 / 255, green: 222 / 255, blue: 222 / 255)
+    // Palette
+    private static let white = Color.white
+    private static let black = Color.black
+    private static let tileCream = Color(red: 248 / 255, green: 238 / 255, blue: 210 / 255)
+    private static let placeholderGray = Color(red: 222 / 255, green: 222 / 255, blue: 222 / 255)
+    private static let inactiveGray = Color(red: 96 / 255, green: 96 / 255, blue: 96 / 255)
+    private static let splitGreen = Color(red: 157 / 255, green: 221 / 255, blue: 136 / 255)
+    private static let letterGreen = Color(red: 73 / 255, green: 159 / 255, blue: 45 / 255)
+    private static let splitGold = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
+    private static let splitGoldLight = Color(red: 255 / 255, green: 244 / 255, blue: 212 / 255)
+    private static let splitGoldDark = Color(red: 247 / 255, green: 185 / 255, blue: 0 / 255)
+    private static let shadowBrown = Color(red: 68 / 255, green: 51 / 255, blue: 30 / 255)
+
+    // Surfaces
+    static let boardBackground = white
+    static let tileFill = tileCream
+    static let tilePlaceholder = placeholderGray
+
+    // Tile States
     static let tileCorrect = Color(red: 222 / 255, green: 241 / 255, blue: 211 / 255)
-    static let tileIncorrect = Color(red: 251 / 255, green: 226 / 255, blue: 224 / 255)
-    static let letterCorrect = Color(red: 44 / 255, green: 163 / 255, blue: 56 / 255)
-    
-    static let split = Color(red: 116 / 255, green: 214 / 255, blue: 126 / 255)
-    static let perfectSplit = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
-    static let criteriaGold = Color(red: 255 / 255, green: 216 / 255, blue: 107 / 255)
-    static let goldDark = Color(red: 247 / 255, green: 185 / 255, blue: 0 / 255)
+    static let tileIncorrect = splitGreen
+    static let letterCorrect = letterGreen
+
+    // Achievements
+    static let split = splitGreen
+    static let perfectSplit = splitGold
+    static let criteriaGold = splitGold
+    static let goldDark = splitGoldDark
     static let darkGold = goldDark
-    
-    static let tileInnerShadow = Color(red: 68 / 255, green: 51 / 255, blue: 30 / 255).opacity(0.1)
-    static let noBadge = Color(red: 224 / 255, green: 224 / 255, blue: 224 / 255)
-    static let buttonActive = Color(red: 96 / 255, green: 96 / 255, blue: 96 / 255)
-    static let textDefault = Color.black
-    static let selection = Color.black.opacity(0.3)
-    static let opaqueText = Color(red: 0 / 255, green: 0 / 255, blue: 0 / 255).opacity(0.3)
+    static let noBadge = placeholderGray
+
+    // Controls And Text
+    static let buttonActive = inactiveGray
+    static let textDefault = black
+    static let selection = black.opacity(0.3)
+    static let opaqueText = black.opacity(0.3)
+
+    // Level Grid Badges
+    static let tileGridBadgeFill = tileFill
+    static let tileGridBadgeAccent = buttonActive
+    static let perfectSplitTileGridBadgeFill = splitGoldLight
+    static let perfectSplitTileGridBadgeAccent = buttonActive
+
+    // Effects
+    static let tileInnerShadow = shadowBrown.opacity(0.1)
+}
+
+private struct LevelTileBadgePalette {
+    let fill: Color
+    let accent: Color
 }
 
 private enum PerfLog {
@@ -2669,6 +2700,10 @@ struct ContentView: View {
                             badges: levelBadges(
                                 for: Self.activeLevels[featuredLevel].id,
                                 progressByLevelID: levelProgressByID
+                            ),
+                            badgePalette: levelTileBadgePalette(
+                                for: Self.activeLevels[featuredLevel].id,
+                                progressByLevelID: levelProgressByID
                             )
                         )
                     }
@@ -2686,6 +2721,10 @@ struct ContentView: View {
                                 ),
                                 isFeatured: false,
                                 badges: levelBadges(
+                                    for: Self.activeLevels[levelIndex].id,
+                                    progressByLevelID: levelProgressByID
+                                ),
+                                badgePalette: levelTileBadgePalette(
                                     for: Self.activeLevels[levelIndex].id,
                                     progressByLevelID: levelProgressByID
                                 )
@@ -2849,7 +2888,8 @@ struct ContentView: View {
         cornerRadius: CGFloat,
         fillColor: Color,
         isFeatured: Bool,
-        badges: [LevelAchievementBadge]
+        badges: [LevelAchievementBadge],
+        badgePalette: LevelTileBadgePalette
     ) -> some View {
         let dayFontSize = max(18, min(width, height) * 0.24)
         let subheaderFontSize = criteriaLabelFontSize(for: height)
@@ -2887,7 +2927,7 @@ struct ContentView: View {
                             Image(systemName: badge.systemImage)
                                 .font(.system(size: badgeButtonSize * 0.85, weight: .semibold))
                                 .symbolRenderingMode(.palette)
-                                .foregroundStyle(AppColor.tileFill, AppColor.buttonActive)
+                                .foregroundStyle(badgePalette.fill, badgePalette.accent)
                                 .frame(width: badgeButtonSize, height: badgeButtonSize)
                         }
                     }
@@ -2913,6 +2953,24 @@ struct ContentView: View {
             return AppColor.split
         }
         return AppColor.tileFill
+    }
+
+    private func levelTileBadgePalette(
+        for levelID: String,
+        progressByLevelID: [String: PersistedLevelProgress]
+    ) -> LevelTileBadgePalette {
+        guard let persistedLevel = progressByLevelID[levelID],
+              persistedLevel.hasAchievedPerfectSplit else {
+            return LevelTileBadgePalette(
+                fill: AppColor.tileGridBadgeFill,
+                accent: AppColor.tileGridBadgeAccent
+            )
+        }
+
+        return LevelTileBadgePalette(
+            fill: AppColor.perfectSplitTileGridBadgeFill,
+            accent: AppColor.perfectSplitTileGridBadgeAccent
+        )
     }
 
     private func levelBadges(
