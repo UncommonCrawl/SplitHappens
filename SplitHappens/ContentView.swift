@@ -2928,7 +2928,7 @@ struct ContentView: View {
             enterLevel(at: index)
         } label: {
             ZStack {
-                levelTileStatusSeal(status, size: min(width, height) * 0.9)
+                levelTileStatusSeal(status, size: min(width, height) * 0.9, isFeatured: isFeatured)
 
                 levelTileLabel(
                     for: index,
@@ -2974,9 +2974,9 @@ struct ContentView: View {
         return .unfinished
     }
 
-    private func levelTileStatusSeal(_ status: LevelTileStatus, size: CGFloat) -> some View {
-        let outlineWidth: CGFloat = 5
-        let outerOutlineOffset: CGFloat = 5
+    private func levelTileStatusSeal(_ status: LevelTileStatus, size: CGFloat, isFeatured: Bool) -> some View {
+        let outlineWidth: CGFloat = isFeatured ? 10 : 5
+        let outerOutlineOffset: CGFloat = isFeatured ? 10 : 5
         let yellow = AppColor.criteriaGold
         let cutout = AppColor.boardBackground
 
