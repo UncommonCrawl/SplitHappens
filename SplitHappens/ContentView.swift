@@ -1208,6 +1208,7 @@ private enum AppColor {
 
     // Controls And Text
     static let buttonActive = Swatch.controlGray.color
+    static let criteriaLabel = Swatch.controlGray.tinted(with: Swatch.placeholderTile, amount: 0.5).color
     static let textDefault = Color.black
     static let selection = Color.black.opacity(0.3)
     static let opaqueText = Color.black.opacity(0.3)
@@ -2071,6 +2072,7 @@ struct ContentView: View {
     private struct CriteriaRowState {
         let kind: CriteriaMilestone
         let label: String?
+        let goldWord: String?
         let goldLetterMatches: [Bool]?
         let isSatisfied: Bool
         let isMet: Bool
@@ -3347,6 +3349,7 @@ struct ContentView: View {
                     ForEach(visibleRows, id: \.kind) { row in
                         criteriaRow(
                             label: row.label,
+                            goldWord: row.goldWord,
                             goldLetterMatches: row.goldLetterMatches,
                             width: columnWidth,
                             height: tabHeight,
@@ -3410,6 +3413,7 @@ struct ContentView: View {
                 rows.append(CriteriaRowState(
                     kind: definition.kind,
                     label: nil,
+                    goldWord: nil,
                     goldLetterMatches: nil,
                     isSatisfied: false,
                     isMet: false,
@@ -3426,13 +3430,16 @@ struct ContentView: View {
             )
             let goldWord = perfectSplitCriterionWord(from: rawLabel)
             let label: String
+            let rowGoldWord: String?
             switch definition.kind {
             case .split:
-                label = "SPLIT ALL TILES INTO VALID WORDS"
+                label = "SPLIT ALL TILES INTO WORDS"
+                rowGoldWord = nil
             case .perfectSplit:
                 label = goldWord.map { "GOLD TILES MUST SPELL \($0) IN ORDER" } ?? rawLabel
+                rowGoldWord = goldWord
             }
-            let goldProgress = goldWord.map { _ in goldLetterMatches }
+            let goldProgress = rowGoldWord.map { _ in goldLetterMatches }
             let isMet = goldProgress.map { matches in
                 !matches.isEmpty && matches.allSatisfy { $0 }
             } ?? criterion.isSatisfied(
@@ -3445,6 +3452,7 @@ struct ContentView: View {
             rows.append(CriteriaRowState(
                 kind: definition.kind,
                 label: label,
+                goldWord: rowGoldWord,
                 goldLetterMatches: goldProgress,
                 isSatisfied: isSatisfied,
                 isMet: isMet,
@@ -3459,6 +3467,7 @@ struct ContentView: View {
 
     private func criteriaRow(
         label: String?,
+        goldWord: String?,
         goldLetterMatches: [Bool]?,
         width: CGFloat,
         height: CGFloat,
@@ -3468,11 +3477,12 @@ struct ContentView: View {
             if let label {
                 let baseText = criteriaRowLabelText(
                     label: label,
+                    goldWord: goldWord,
                     goldLetterMatches: goldLetterMatches
                 )
                 let goldPlacementAction: (() -> Void)? = {
-                    guard goldLetterMatches != nil,
-                          perfectSplitCriterionWord(from: label) != nil else {
+                    guard goldWord != nil,
+                          goldLetterMatches != nil else {
                         return nil
                     }
                     return { placeGoldTilesInCorrectOrder() }
@@ -3509,20 +3519,38 @@ struct ContentView: View {
         return word
     }
 
-    private func criteriaRowLabelText(label: String, goldLetterMatches: [Bool]?) -> Text {
+    private func criteriaRowLabelText(label: String, goldWord: String?, goldLetterMatches: [Bool]?) -> Text {
         if let goldLetterMatches,
-           let goldWord = perfectSplitCriterionWord(from: label) {
-            return Text(perfectSplitCriteriaLabelAttributedString(word: goldWord, goldLetterMatches: goldLetterMatches))
+           let goldWord {
+            return Text(perfectSplitCriteriaLabelAttributedString(
+                label: label,
+                word: goldWord,
+                goldLetterMatches: goldLetterMatches
+            ))
         }
 
         var attributed = AttributedString(label)
-        attributed.foregroundColor = AppColor.buttonActive
+        attributed.foregroundColor = AppColor.criteriaLabel
         return Text(attributed)
     }
 
-    private func perfectSplitCriteriaLabelAttributedString(word: String, goldLetterMatches: [Bool]) -> AttributedString {
-        var attributed = AttributedString("GOLD TILES MUST SPELL ")
-        attributed.foregroundColor = AppColor.buttonActive
+    private func perfectSplitCriteriaLabelAttributedString(
+        label: String,
+        word: String,
+        goldLetterMatches: [Bool]
+    ) -> AttributedString {
+        var attributed = perfectSplitCriteriaPromptAttributedString()
+
+        guard let wordRange = label.range(of: word) else {
+            var labelText = AttributedString(label)
+            labelText.foregroundColor = AppColor.criteriaLabel
+            attributed.append(labelText)
+            return attributed
+        }
+
+        var prefix = AttributedString(String(label[..<wordRange.lowerBound]))
+        prefix.foregroundColor = AppColor.criteriaLabel
+        attributed.append(prefix)
 
         for (index, character) in word.enumerated() {
             var letterText = AttributedString(String(character))
@@ -3531,8 +3559,23 @@ struct ContentView: View {
             attributed.append(letterText)
         }
 
-        var suffix = AttributedString(" IN ORDER")
-        suffix.foregroundColor = AppColor.buttonActive
+        var suffix = AttributedString(String(label[wordRange.upperBound...]))
+        suffix.foregroundColor = AppColor.criteriaLabel
+        attributed.append(suffix)
+
+        return attributed
+    }
+
+    private func perfectSplitCriteriaPromptAttributedString() -> AttributedString {
+        var attributed = AttributedString("GO FOR ")
+        attributed.foregroundColor = AppColor.criteriaLabel
+
+        var perfect = AttributedString("PERFECT!")
+        perfect.foregroundColor = AppColor.darkGold
+        attributed.append(perfect)
+
+        var suffix = AttributedString("\n")
+        suffix.foregroundColor = AppColor.criteriaLabel
         attributed.append(suffix)
 
         return attributed
