@@ -2023,6 +2023,17 @@ struct ContentView: View {
         case unfinished
         case split
         case perfectSplit
+
+        var sealAssetName: String {
+            switch self {
+            case .unfinished:
+                return "SealEmpty"
+            case .split:
+                return "SealSolid"
+            case .perfectSplit:
+                return "SealOffsetBorder"
+            }
+        }
     }
 
     private enum CriteriaMilestone: Hashable {
@@ -2975,33 +2986,13 @@ struct ContentView: View {
     }
 
     private func levelTileStatusSeal(_ status: LevelTileStatus, size: CGFloat, isFeatured: Bool) -> some View {
-        let outlineWidth: CGFloat = isFeatured ? 10 : 5
-        let outerOutlineOffset: CGFloat = isFeatured ? 10 : 5
-        let yellow = AppColor.criteriaGold
-        let cutout = AppColor.boardBackground
+        let offsetBorderExpansion: CGFloat = isFeatured ? 40 : 20
+        let imageSize = status == .perfectSplit ? size + offsetBorderExpansion : size
 
-        return ZStack {
-            if status == .perfectSplit {
-                levelTileSealImage(size: size + ((outerOutlineOffset + outlineWidth) * 2), color: yellow)
-                levelTileSealImage(size: size + (outerOutlineOffset * 2), color: cutout)
-            }
-
-            if status == .unfinished {
-                levelTileSealImage(size: size, color: yellow)
-                levelTileSealImage(size: max(size - (outlineWidth * 2), 0), color: cutout)
-            } else {
-                levelTileSealImage(size: size, color: yellow)
-            }
-        }
-        .frame(width: size, height: size)
-    }
-
-    private func levelTileSealImage(size: CGFloat, color: Color) -> some View {
-        Image(systemName: "seal")
+        return Image(status.sealAssetName)
             .resizable()
             .scaledToFit()
-            .symbolVariant(.fill)
-            .foregroundStyle(color)
+            .frame(width: imageSize, height: imageSize)
             .frame(width: size, height: size)
     }
 
