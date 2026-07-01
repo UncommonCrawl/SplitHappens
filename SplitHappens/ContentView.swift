@@ -2986,7 +2986,7 @@ struct ContentView: View {
     }
 
     private func levelTileStatusSeal(_ status: LevelTileStatus, size: CGFloat, isFeatured: Bool) -> some View {
-        let offsetBorderExpansion: CGFloat = isFeatured ? 40 : 20
+        let offsetBorderExpansion: CGFloat = isFeatured ? 0 : 20
         let imageSize = status == .perfectSplit ? size + offsetBorderExpansion : size
 
         return Image(status.sealAssetName)
