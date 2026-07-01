@@ -3431,7 +3431,7 @@ struct ContentView: View {
                 totalWords: totalWords,
                 rules: Self.criteriaRules
             )
-            let goldWord = goldCriterionWord(from: rawLabel)
+            let goldWord = perfectSplitCriterionWord(from: rawLabel)
             let label: String
             switch definition.kind {
             case .split:
@@ -3479,7 +3479,7 @@ struct ContentView: View {
                 )
                 let goldPlacementAction: (() -> Void)? = {
                     guard goldLetterMatches != nil,
-                          goldCriterionWord(from: label) != nil else {
+                          perfectSplitCriterionWord(from: label) != nil else {
                         return nil
                     }
                     return { placeGoldTilesInCorrectOrder() }
@@ -3501,7 +3501,7 @@ struct ContentView: View {
         .background(Color.clear)
     }
 
-    private func goldCriterionWord(from label: String) -> String? {
+    private func perfectSplitCriterionWord(from label: String) -> String? {
         let prefixes = [
             "GOLD TILES MUST SPELL ",
             "GOLD TILES SPELL "
@@ -3518,8 +3518,8 @@ struct ContentView: View {
 
     private func criteriaRowLabelText(label: String, goldLetterMatches: [Bool]?) -> Text {
         if let goldLetterMatches,
-           let goldWord = goldCriterionWord(from: label) {
-            return Text(goldCriteriaLabelAttributedString(word: goldWord, goldLetterMatches: goldLetterMatches))
+           let goldWord = perfectSplitCriterionWord(from: label) {
+            return Text(perfectSplitCriteriaLabelAttributedString(word: goldWord, goldLetterMatches: goldLetterMatches))
         }
 
         var attributed = AttributedString(label)
@@ -3527,7 +3527,7 @@ struct ContentView: View {
         return Text(attributed)
     }
 
-    private func goldCriteriaLabelAttributedString(word: String, goldLetterMatches: [Bool]) -> AttributedString {
+    private func perfectSplitCriteriaLabelAttributedString(word: String, goldLetterMatches: [Bool]) -> AttributedString {
         var attributed = AttributedString("GOLD TILES MUST SPELL ")
         attributed.foregroundColor = AppColor.buttonActive
 

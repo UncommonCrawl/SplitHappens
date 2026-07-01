@@ -21,8 +21,8 @@ def read_input() -> str:
         return Path(sys.argv[1]).read_text(encoding="utf-8")
 
     if sys.stdin.isatty():
-        print("Usage: python3 scripts/generate_gold_criteria.py <levels.json>", file=sys.stderr)
-        print("   or: cat levels.json | python3 scripts/generate_gold_criteria.py", file=sys.stderr)
+        print("Usage: python3 scripts/generate_perfect_split_criteria.py <levels.json>", file=sys.stderr)
+        print("   or: cat levels.json | python3 scripts/generate_perfect_split_criteria.py", file=sys.stderr)
         raise SystemExit(1)
 
     return sys.stdin.read()
