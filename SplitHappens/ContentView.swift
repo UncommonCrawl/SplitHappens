@@ -4591,7 +4591,9 @@ struct ContentView: View {
         let newlyReachedPerfectSplit = !hasAchievedPerfectSplit && updatedHasAchievedPerfectSplit
 
         if updatedHasAchievedSplit != hasAchievedSplit || updatedHasAchievedPerfectSplit != hasAchievedPerfectSplit {
-            withAnimation(.spring(response: 0.26, dampingFraction: 0.74)) {
+            var transaction = Transaction(animation: nil)
+            transaction.disablesAnimations = true
+            withTransaction(transaction) {
                 hasAchievedSplit = updatedHasAchievedSplit
                 hasAchievedPerfectSplit = updatedHasAchievedPerfectSplit
             }
