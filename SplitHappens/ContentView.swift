@@ -2932,8 +2932,10 @@ struct ContentView: View {
     ) -> some View {
         let dayFontSize = max(18, min(width, height) * 0.24)
         let subheaderFontSize = criteriaLabelFontSize(for: height)
-        let badgeButtonSize = min(height * 0.2, 60)
+        let baseBadgeButtonSize = min(height * 0.2, 60)
+        let badgeButtonSize = isFeatured ? baseBadgeButtonSize * 0.8 : baseBadgeButtonSize
         let badgeGap = height * 0.05
+        let badgeYPosition = height * (isFeatured ? 0.78 : 0.82)
 
         return Button {
             enterLevel(at: index)
@@ -2961,7 +2963,7 @@ struct ContentView: View {
                                 .frame(width: badgeButtonSize, height: badgeButtonSize)
                         }
                     }
-                    .position(x: width * 0.5, y: height * 0.82)
+                    .position(x: width * 0.5, y: badgeYPosition)
                 }
             }
         }
